@@ -15,7 +15,7 @@ module.exports = (grunt) ->
         tmp: ".tmp"
         compiled: ".tmp/compiled"
         dist: "web"
-        vendor: "bower_component"
+        vendor: "bower_components"
     fileDeps: loadConfig "file-dependency.conf.coffee"
     clean:
       intermediate:
