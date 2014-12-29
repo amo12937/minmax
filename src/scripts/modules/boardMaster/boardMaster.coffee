@@ -34,6 +34,7 @@ do (moduleName = "amo.minmax.BoardMaster") ->
     
       self =
         const:
+          rank: -> board.rank()
           TURN:
             H: _h
             V: _v
