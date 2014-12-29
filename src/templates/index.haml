@@ -7,4 +7,19 @@
     %script(src="../scripts/app.js")
     %script(src="../scripts/bootstrap.js")
   %body(ng-controller="amo.minmax.controllers.minmax")
-    %h1 {{ hoge }}
+    .configs
+      .config
+        %span min = 
+        %input(type="text" value="{{min}}")
+      .config
+        %span max =
+        %input(type="text" value="{{max}}")
+      .config
+        %span rank =
+        %input(type="text" value="{{rank}}")
+    .button
+      %button(ng-click="createBoardMaster()") create
+    .board
+      .row(ng-repeat="i in rankList" style="clear:both; display: table;")
+        .col(ng-repeat="j in rankList" style="width: 50px; height: 50px; border: solid 1px; float:left; display: table-cell; text-align: center; vertical-align: middle;" ng-click="clickCell(i, j)")
+          {{ boardMaster.current.board.get([i, j]) }}

@@ -35,6 +35,7 @@ do (moduleName = "amo.minmax.BoardMaster") ->
       self =
         current:
           board:
+            rank: -> board.rank()
             get: (p) -> board.get p
             selectable: (p) -> board.get(p) isnt _unselectable
           turn: -> turn
