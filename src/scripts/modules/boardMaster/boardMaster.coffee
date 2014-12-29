@@ -46,6 +46,8 @@ do (moduleName = "amo.minmax.BoardMaster") ->
           position: (p) ->
             return [pos[_v], pos[_h]] if p is undefined
             return p[_v] is pos[_v] and p[_h] is pos[_v]
+          isFirst: ->
+            return pos[_v] is undefined and pos[_h] is undefined
 
         get: (p) -> board.get p
 
