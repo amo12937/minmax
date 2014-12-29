@@ -4,7 +4,7 @@ do (moduleName = "amo.minmax.BoardMaster") ->
   _v = 0
   _h = 1
   _nextTurn = (turn) -> 1 - turn
-  _unselectable = "**"
+  _used = "**"
 
   angular.module moduleName, ["ng"]
 
@@ -26,47 +26,44 @@ do (moduleName = "amo.minmax.BoardMaster") ->
             b[p[_v]][p[_h]] = s
 
   .factory "#{moduleName}.BoardMaster", ->
-    BoardMaster = (board, first = _v) ->
-      turn = if first isnt _h then _v else _h
+    BoardMaster = (board, first = _h) ->
+      turn = if first isnt _v then _h else _v
       score = [0, 0]
       pos = []
       stack = []
     
       self =
         current:
-          board:
-            rank: -> board.rank()
-            get: (p) -> board.get p
-            selectable: (p) -> board.get(p) isnt _unselectable
           turn: -> turn
           score: -> [score[_v], score[_h]]
           position: -> [pos[_v], pos[_h]]
+
+        get: (p) -> board.get p
+
+        used: (p) -> board.get(p) is _used
     
-        selectable: (n) ->
-          return false unless 0 <= n < board.rank()
-          return true if pos[_nextTurn turn] is undefined
-          p = [pos[_v], pos[_h]]
-          p[turn] = n
-          return board.get(p) isnt _unselectable
+        selectable: (p) ->
+          return false unless board.isInside p
+          t = _nextTurn turn
+          return true if pos[t] is undefined
+          return false unless p[t] is pos[t]
+          return board.get(p) isnt _used
     
-        select: (n) ->
-          return false unless self.selectable n
+        select: (p) ->
+          return false unless self.selectable p
+          oldPos = pos
+          pos = [p[_v], p[_h]]
+          s = board.get pos
+          score[turn] += s
+          board.set pos, _used
           t = turn
-          m = pos[t]
-          pos[t] = n
-          if pos[_nextTurn t] is undefined
-            s = 0
-          else
-            s = board.get pos
-          score[t] += s
-          board.set pos, _unselectable
           turn = _nextTurn t
     
           stack.push ->
             turn = t
             board.set pos, s
-            score[t] -= s
-            pos[t] = m
+            score[turn] -= s
+            pos = oldPos
     
           return true
     

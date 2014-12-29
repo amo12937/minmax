@@ -22,6 +22,6 @@ do (modulePrefix = "amo.minmax") ->
         $scope.boardMaster = BoardMaster board
         $scope.rankList = [0 .. rank - 1]
 
-      $scope.clickCell = (p) ->
-        $scope.boardMaster.select p
+      $scope.clickCell = (i, j) ->
+        $scope.boardMaster.select [i, j]
   ]

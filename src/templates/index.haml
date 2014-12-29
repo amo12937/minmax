@@ -6,6 +6,7 @@
     %script(src="../scripts/controllers/minmax.js")
     %script(src="../scripts/app.js")
     %script(src="../scripts/bootstrap.js")
+    %link(href="../styles/minmax.css" rel="stylesheet")
   %body(ng-controller="amo.minmax.controllers.minmax")
     .configs
       .config
@@ -21,5 +22,5 @@
       %button(ng-click="createBoardMaster()") create
     .board
       .row(ng-repeat="i in rankList" style="clear:both; display: table;")
-        .col(ng-repeat="j in rankList" style="width: 50px; height: 50px; border: solid 1px; float:left; display: table-cell; text-align: center; vertical-align: middle;" ng-click="clickCell(i, j)")
-          {{ boardMaster.current.board.get([i, j]) }}
+        .panel(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" style="width: 50px; height: 50px; border: solid 1px; float:left; display: table-cell; text-align: center; vertical-align: middle;" ng-click="clickCell(i, j)")
+          {{ boardMaster.get([i, j]) }}

@@ -68,6 +68,13 @@ module.exports = (grunt) ->
           src: ["**/*.{js,map}"]
           dest: "<%= context.dir.dist %>"
         }]
+      styles:
+        files: [{
+          expand: true
+          cwd: "<%= context.dir.src %>"
+          src: ["**/*.css"]
+          dest: "<%= context.dir.dist %>"
+        }]
     karma:
       unit:
         configFile: "karma.conf.coffee"
@@ -108,6 +115,13 @@ module.exports = (grunt) ->
           "newer:coffee:compile"
           "newer:copy:scripts"
         ]
+      styles:
+        files: [
+          "<%= context.dir.src %>/**/*.css"
+        ]
+        tasks: [
+          "newer:copy:styles"
+        ]
       coffeeTest:
         files: [
           "<%= context.dir.src %>/**/*.coffee"
@@ -136,6 +150,7 @@ module.exports = (grunt) ->
     "copy:templates"
     "coffee:compile"
     "copy:scripts"
+    "copy:styles"
   ]
 
 # tasks for test
