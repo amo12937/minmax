@@ -6,7 +6,7 @@ do (moduleName = "amo.minmax.BoardMaster") ->
   _nextTurn = (turn) -> 1 - turn
   _unselectable = "**"
 
-  angular.module(moduleName, ["ng"])
+  angular.module moduleName, ["ng"]
 
   .factory "#{moduleName}.RandomScoreCreator", ->
     (min, max) -> -> Math.floor(Math.random() * (max - min + 1)) + min

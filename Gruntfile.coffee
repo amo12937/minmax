@@ -92,6 +92,14 @@ module.exports = (grunt) ->
     watch:
       options:
         spawn: false
+      haml:
+        files: [
+          "<%= context.dir.src %>/**/*.haml"
+        ]
+        tasks: [
+          "newer:haml:compile"
+          "newer:copy:templates"
+        ]
       coffee:
         files: [
           "<%= context.dir.src %>/**/*.coffee"
