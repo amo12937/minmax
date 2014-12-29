@@ -70,7 +70,12 @@ do (moduleName = "amo.minmax.BoardMaster") ->
         undo: -> stack.pop()?()
 
         isFinished: ->
-          return false for n in [0 .. board.rank() - 1] when self.selectable n
+          return false if pos[turn] is undefined
+          p = self.current.position()
+          for n in [0 .. board.rank() - 1]
+            p[turn] = n
+            if self.selectable p
+              return false
           return true
     BoardMaster.TURN =
       H: _h
