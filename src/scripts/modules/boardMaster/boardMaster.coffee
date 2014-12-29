@@ -33,10 +33,18 @@ do (moduleName = "amo.minmax.BoardMaster") ->
       stack = []
     
       self =
+        const:
+          TURN:
+            H: _h
+            V: _v
         current:
           turn: -> turn
-          score: -> [score[_v], score[_h]]
-          position: -> [pos[_v], pos[_h]]
+          score: (turn) ->
+            return [score[_v], score[_h]] if turn is undefined
+            return score[turn]
+          position: (p) ->
+            return [pos[_v], pos[_h]] if p is undefined
+            return p[_v] is pos[_v] and p[_h] is pos[_v]
 
         get: (p) -> board.get p
 
