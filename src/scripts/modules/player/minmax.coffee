@@ -6,23 +6,39 @@ do (moduleName = "amo.minmax.Player") ->
   .factory "#{moduleName}.Minmax", [
     "$timeout"
     ($timeout) ->
-      (boardMaster) ->
+      (boardMaster, maxDepth = 7, delay = 0) ->
         l = [0 .. boardMaster.const.rank() - 1]
-        play: (callback) ->
+        choice = (depth) ->
+          return [0, 0] if depth <= 0
+          return [0, 0] if boardMaster.isFinished()
           pos = boardMaster.current.position()
           turn = boardMaster.current.turn()
+          #console.log
+          #  depth: depth
+          #  pos: pos
+          #  turn: turn
           score = -Infinity
           result = 0
           for i in l
             pos[turn] = i
-            continue if boardMaster.used pos
-            s = boardMaster.get pos
+            continue unless boardMaster.selectable pos
+            boardMaster.select pos
+            s = boardMaster.current.score turn
+            [s2, _] = choice depth - 1
+            s -= s2
+            boardMaster.undo()
             if s > score
               score = s
               result = i
+          return [score, result]
+          
+        play: (callback) ->
+          pos = boardMaster.current.position()
+          turn = boardMaster.current.turn()
+          [_, result] = choice maxDepth
           pos[turn] = result
           $timeout ->
             boardMaster.select pos
             callback boardMaster.isFinished()
-          , 1000
+          , delay
   ]
