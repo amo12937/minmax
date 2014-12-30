@@ -1,11 +1,11 @@
 .panel {
-  background-color: #ffbbbb;
+  background-color: #ffaaaa;
 }
 
 .panel.selectable {
-  background-color: #bbffbb;
+  background-color: #ccffcc;
 }
 
 .panel.used {
-  background-color: #bbbbbb;
+  background-color: #888888;
 }
