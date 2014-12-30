@@ -1,6 +1,5 @@
 {
 "replay": "もう一度",
-"black": "先手",
-"white": "後手",
+"level": "レベル",
 "LAST_DUMMY": "LAST_DUMMY"
 }

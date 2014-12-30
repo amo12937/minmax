@@ -17,13 +17,6 @@
         %button.btn.btn-default(ng-click="play()") {{ "replay"|trans }}
     .configs
       .config.form-group
-        %label.col-sm-1 {{ "black"|trans }}
-        .form-inline
-          %select.form-control(ng-model="first.type" ng-options="v for (k, v) in player")
-          %input.form-control(type="text" ng-model="first.name" placeholder="{{first.namePlaceHolder()}}")
-      .config.form-group
-        %label.col-sm-1 {{ "white"|trans }}
-        .form-inline
-          %select.form-control(ng-model="second.type" ng-options="v for (k, v) in player")
-          %input.form-control(type="text" ng-model="second.name" placeholder="{{second.namePlaceHolder()}}")
+        %label.col-sm-1 {{ "level"|trans }}
+        %select.form-control(ng-model="p2_level" ng-options="v for v in levels")
   
