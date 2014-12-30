@@ -4,7 +4,6 @@
 }
 
 .minmax .boardMaster {
-  width: 280px;
   margin: 15px auto;
 }
 
@@ -25,8 +24,6 @@
   background-color: #ffaaaa;
   margin: 0px;
   padding: 0px;
-  width: 40px;
-  height: 40px;
   border: solid 1px;
   float: left;
   display: table-cell;

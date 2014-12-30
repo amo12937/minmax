@@ -1,5 +1,5 @@
 .minmax
-  .boardMaster
+  .boardMaster(style="width: {{boardMaster.const.rank() * 40}}px;")
     .score
       .score-item.black.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.H) && !boardMaster.isFinished()}")
         %i.fa.fa-star-o(ng-show="boardMaster.isFinished() && boardMaster.current.winner(boardMaster.const.TURN.H)")
@@ -9,7 +9,7 @@
         {{ boardMaster.current.score(boardMaster.const.TURN.V) }}
     .board
       .row(ng-repeat="i in rankList")
-        .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" ng-click="clickCell(i, j)")
+        .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" ng-click="clickCell(i, j)" style="width: 40px; height: 40px;")
           {{ boardMaster.get([i, j]) }}
   .menu(ng-show="boardMaster.isFinished()")
     .commands
