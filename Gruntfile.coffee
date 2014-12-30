@@ -75,6 +75,10 @@ module.exports = (grunt) ->
           src: ["**/*.css"]
           dest: "<%= context.dir.dist %>"
         }]
+    symlink:
+      vendor:
+        src: "<%= context.dir.vendor %>"
+        dest: "<%= context.dir.dist %>/vendor"
     karma:
       unit:
         configFile: "karma.conf.coffee"
@@ -89,6 +93,10 @@ module.exports = (grunt) ->
             "<%= context.dir.src %>/**/*.coffee"
             "<%= context.dir.test %>/**/*.coffee"
           ]
+    makeMainJs:
+      target:
+        dest: "<%= context.dir.dist %>/scripts/<%= fileDeps.main.name %>"
+        main: "<%= fileDeps.main.deps %>"
     makePriority:
       scripts:
         options:
@@ -150,7 +158,9 @@ module.exports = (grunt) ->
     "copy:templates"
     "coffee:compile"
     "copy:scripts"
+    "makeMainJs:target"
     "copy:styles"
+    "symlink:vendor"
   ]
 
 # tasks for test

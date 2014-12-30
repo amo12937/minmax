@@ -1,16 +1,9 @@
 %html
   %head
     %title minmax
-    %script(src="../../bower_components/angular/angular.js")
-    %script(src="../scripts/modules/boardMaster/boardMaster.js")
-    %script(src="../scripts/modules/player/player.js")
-    %script(src="../scripts/modules/player/com.js")
-    %script(src="../scripts/modules/player/man.js")
-    %script(src="../scripts/modules/gameMaster/gameMaster.js")
-    %script(src="../scripts/controllers/minmax.js")
-    %script(src="../scripts/app.js")
-    %script(src="../scripts/bootstrap.js")
-    %link(href="../styles/minmax.css" rel="stylesheet")
+    %script(src="vendor/angular/angular.js")
+    %script(src="vendor/requirejs/require.js" data-main="scripts/main.js")
+    %link(href="styles/minmax.css" rel="stylesheet")
   %body(ng-controller="amo.minmax.controllers.minmax")
     .configs
       .config
