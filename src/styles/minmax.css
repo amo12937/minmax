@@ -1,11 +1,12 @@
-.panel {
+.minmax .panel {
   background-color: #ffaaaa;
+  margin: 0px;
 }
 
-.panel.selectable {
+.minmax .panel.selectable {
   background-color: #ccffcc;
 }
 
-.panel.used {
+.minmax .panel.used {
   background-color: #888888;
 }

@@ -3,15 +3,6 @@
     .config
       .sample {{ "hello"|trans }}
     .config
-      %span min = 
-      %input(type="text" ng-model="min")
-    .config
-      %span max =
-      %input(type="text" ng-model="max")
-    .config
-      %span rank =
-      %input(type="text" ng-model="rank")
-    .config
       %span first:
       %input(type="radio" ng-model="first" value="{{player.MAN}}") man
       %input(type="radio" ng-model="first" value="{{player.COM}}") com
@@ -27,5 +18,5 @@
       .com {{ boardMaster.current.score(boardMaster.const.TURN.V) }}
     .board
       .row(ng-repeat="i in rankList" style="clear:both; display: table;")
-        .panel(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" style="width: 50px; height: 50px; border: solid 1px; float:left; display: table-cell; text-align: center; vertical-align: middle;" ng-click="clickCell(i, j)")
+        .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" style="width: 40px; height: 40px; border: solid 1px; float:left; display: table-cell; text-align: center; vertical-align: middle;" ng-click="clickCell(i, j)")
           {{ boardMaster.get([i, j]) }}
