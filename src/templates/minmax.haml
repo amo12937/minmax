@@ -10,7 +10,7 @@
     .board
       .row(ng-repeat="i in rankList")
         .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" ng-click="clickCell(i, j)" style="width: 40px; height: 40px;")
-          {{ boardMaster.get([i, j]) }}
+          .inner-panel {{ boardMaster.get([i, j]) }}
   .menu(ng-show="boardMaster.isFinished()")
     .commands
       .command

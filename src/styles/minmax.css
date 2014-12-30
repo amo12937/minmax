@@ -26,9 +26,14 @@
   padding: 0px;
   border: solid 1px;
   float: left;
-  display: table-cell;
+  display: table;
   text-align: center;
-  vertical-align: middle
+}
+
+.minmax .panel .inner-panel {
+  font-size: 18px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .minmax .panel.selectable {
