@@ -3,7 +3,7 @@
 do (moduleName = "amo.minmax.Player") ->
   angular.module moduleName
 
-  .factory "#{moduleName}.Minmax", [
+  .factory "#{moduleName}.Com", [
     "$timeout"
     ($timeout) ->
       (boardMaster, maxDepth = 7, delay = 0) ->

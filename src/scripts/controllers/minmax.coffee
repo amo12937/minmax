@@ -8,7 +8,7 @@ do (modulePrefix = "amo.minmax") ->
     "#{modulePrefix}.BoardMaster.Board"
     "#{modulePrefix}.BoardMaster.BoardMaster"
     "#{modulePrefix}.Player.Man"
-    "#{modulePrefix}.Player.Minmax"
+    "#{modulePrefix}.Player.Com"
     "#{modulePrefix}.GameMaster.GameMaster"
     ($scope, RandomScoreCreator, Board, BoardMaster, Man, Com, GameMaster) ->
       $scope.min = -10
