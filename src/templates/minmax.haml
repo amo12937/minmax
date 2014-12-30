@@ -1,12 +1,12 @@
 .minmax
   .boardMaster(style="width: {{boardMaster.const.rank() * 40}}px;")
     .score
-      .score-item.black.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.H) && !boardMaster.isFinished()}")
-        %i.fa.fa-star-o(ng-show="boardMaster.isFinished() && boardMaster.current.winner(boardMaster.const.TURN.H)")
-        {{ boardMaster.current.score(boardMaster.const.TURN.H) }}
-      .score-item.white.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.V) && !boardMaster.isFinished()}")
-        %i.fa.fa-star-o(ng-show="boardMaster.isFinished() && boardMaster.current.winner(boardMaster.const.TURN.V)")
-        {{ boardMaster.current.score(boardMaster.const.TURN.V) }}
+      .score-item.black.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.BLACK) && !boardMaster.isFinished()}")
+        %i.fa.fa-star-o(ng-show="boardMaster.isFinished() && boardMaster.current.winner(boardMaster.const.TURN.BLACK)")
+        {{ boardMaster.current.score(boardMaster.const.TURN.BLACK) }}
+      .score-item.white.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.WHITE) && !boardMaster.isFinished()}")
+        %i.fa.fa-star-o(ng-show="boardMaster.isFinished() && boardMaster.current.winner(boardMaster.const.TURN.WHITE)")
+        {{ boardMaster.current.score(boardMaster.const.TURN.WHITE) }}
     .board
       .row(ng-repeat="i in rankList")
         .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" ng-click="clickCell(i, j)" style="width: 40px; height: 40px;")

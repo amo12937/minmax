@@ -80,14 +80,14 @@ describe "amo.minmax.BoardMaster モジュールの仕様", ->
         createScore = (i, j) -> 10 * i + j
         board = Board rank, createScore, outside
         BoardMaster = _BoardMaster
-        boardMaster = BoardMaster board, BoardMaster.TURN.H
+        boardMaster = BoardMaster board
       ]
 
     describe "current は", ->
       it "現在の turn を与える", ->
-        expect(boardMaster.current.turn()).toBe BoardMaster.TURN.H
+        expect(boardMaster.current.turn()).toBe boardMaster.const.TURN.BLACK
         boardMaster.select [3, 2]
-        expect(boardMaster.current.turn()).toBe BoardMaster.TURN.V
+        expect(boardMaster.current.turn()).toBe boardMaster.const.TURN.WHITE
 
       it "現在の score を与える", ->
         expect(boardMaster.current.score()).toEqual [0, 0]

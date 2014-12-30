@@ -1,8 +1,8 @@
 "use strict"
 
 do (moduleName = "amo.minmax.BoardMaster") ->
-  _v = 0
-  _h = 1
+  _white = 0
+  _black = 1
   _nextTurn = (turn) -> 1 - turn
   _used = "**"
 
@@ -17,23 +17,23 @@ do (moduleName = "amo.minmax.BoardMaster") ->
       b = (([false, createScore i, j] for j in l) for i in l)
       self =
         rank: -> rank
-        isInside: (p) -> 0 <= p[_v] < rank and 0 <= p[_h] < rank
+        isInside: (p) -> 0 <= p[_white] < rank and 0 <= p[_black] < rank
         get: (p) ->
-          return b[p[_v]][p[_h]][1] if self.isInside p
+          return b[p[_white]][p[_black]][1] if self.isInside p
           return outside
         used: (p) ->
           return false unless self.isInside p
-          return b[p[_v]][p[_h]][0]
+          return b[p[_white]][p[_black]][0]
         use: (p) ->
           if self.isInside p
-            b[p[_v]][p[_h]][0] = true
+            b[p[_white]][p[_black]][0] = true
         unuse: (p) ->
           if self.isInside p
-            b[p[_v]][p[_h]][0] = false
+            b[p[_white]][p[_black]][0] = false
 
   .factory "#{moduleName}.BoardMaster", ->
-    BoardMaster = (board, first = _h) ->
-      turn = if first isnt _v then _h else _v
+    BoardMaster = (board) ->
+      turn = _black
       score = [0, 0]
       pos = []
       stack = []
@@ -42,21 +42,21 @@ do (moduleName = "amo.minmax.BoardMaster") ->
         const:
           rank: -> board.rank()
           TURN:
-            H: _h
-            V: _v
+            BLACK: _black
+            WHITE: _white
         current:
           turn: (t) ->
             return turn if t is undefined
             return turn is t
 
           score: (t) ->
-            return [score[_v], score[_h]] if t is undefined
+            return [score[_white], score[_black]] if t is undefined
             return score[t]
           position: (p) ->
-            return [pos[_v], pos[_h]] if p is undefined
-            return p[_v] is pos[_v] and p[_h] is pos[_v]
+            return [pos[_white], pos[_black]] if p is undefined
+            return p[_white] is pos[_white] and p[_black] is pos[_white]
           isFirst: ->
-            return pos[_v] is undefined and pos[_h] is undefined
+            return pos[_white] is undefined and pos[_black] is undefined
           winner: (t) ->
             return score[t] > score[_nextTurn t]
 
@@ -74,7 +74,7 @@ do (moduleName = "amo.minmax.BoardMaster") ->
         select: (p) ->
           return false unless self.selectable p
           oldPos = pos
-          pos = [p[_v], p[_h]]
+          pos = [p[_white], p[_black]]
           s = board.get pos
           score[turn] += s
           board.use pos
@@ -99,7 +99,4 @@ do (moduleName = "amo.minmax.BoardMaster") ->
             if self.selectable p
               return false
           return true
-    BoardMaster.TURN =
-      H: _h
-      V: _v
     return BoardMaster
