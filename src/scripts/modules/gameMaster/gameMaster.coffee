@@ -54,20 +54,8 @@ do (moduleName = "amo.minmax.GameMaster") ->
     "$timeout"
     "#{moduleName}.GameMasterFsm"
     ($timeout, Fsm) ->
-      makeRing = (players) ->
-        q = players[players.length - 1]
-        for p in players
-          do (r = p) ->
-            q.succ = -> r
-          q = p
-        return
-          
-      nextPlayer = (player) ->
-        return player.next?() or player.succ()
-
-      (delegate, players) ->
-        makeRing players
-        current = players[0]
+      (delegate, nextPlayer) ->
+        current = nextPlayer()
         fsm = Fsm
           startPlaying: ->
             $timeout ->
@@ -78,7 +66,7 @@ do (moduleName = "amo.minmax.GameMaster") ->
                 else
                   fsm().finish()
           finishPlaying: ->
-            current = nextPlayer current
+            current = nextPlayer()
           endGame: ->
             delegate.endGame?()
           stop: ->

@@ -20,13 +20,13 @@ do (modulePrefix = "amo.minmax") ->
     "#{modulePrefix}.Player.Com"
     "#{modulePrefix}.GameMaster.GameMaster"
     ($location, $route, $scope, RandomScoreCreator, Board, BoardMaster, Man, Com, GameMaster) ->
-      players = {"MAN", "COM"}
+      playerTypes = {"MAN", "COM"}
       toNum = (n, d) ->
         return d unless n
         return Number n
 
       createPlayer = (type, name, level, delay) ->
-        return Com name, $scope.boardMaster, Math.max(level, 1), Math.max(delay, 0) if type is players.COM
+        return Com name, $scope.boardMaster, Math.max(level, 1), Math.max(delay, 0) if type is playerTypes.COM
         return Man name, $scope.boardMaster
 
       opts = $location.search()
@@ -34,11 +34,11 @@ do (modulePrefix = "amo.minmax") ->
         min: toNum opts.min, -10
         max: toNum opts.max, 10
         rank: toNum opts.rank, 7
-        p1: opts.p1 or players.MAN
+        p1: opts.p1 or playerTypes.MAN
         p1_name: opts.p1_name or "you"
         p1_level: toNum opts.p1_level, 5
         p1_delay: toNum opts.p1_delay, 100
-        p2: opts.p2 or players.COM
+        p2: opts.p2 or playerTypes.COM
         p2_name: opts.p2_name or "com"
         p2_level: toNum opts.p2_level, 5
         p2_delay: toNum opts.p2_delay, 100
@@ -48,11 +48,12 @@ do (modulePrefix = "amo.minmax") ->
 
       createScore = RandomScoreCreator options.min, options.max
       board = Board options.rank, createScore, "outside"
-      $scope.boardMaster = BoardMaster board
+      $scope.boardMaster = boardMaster = BoardMaster board
       $scope.rankList = [0 .. options.rank - 1]
 
-      p1 = createPlayer options.p1, options.p1_name, options.p1_level, options.p1_delay
-      p2 = createPlayer options.p2, options.p2_name, options.p2_level, options.p2_delay
+      players = {}
+      players[boardMaster.const.TURN.BLACK] = createPlayer options.p1, options.p1_name, options.p1_level, options.p1_delay
+      players[boardMaster.const.TURN.WHITE] = createPlayer options.p2, options.p2_name, options.p2_level, options.p2_delay
 
       gameMasterDelegate =
         endGame: ->
@@ -60,7 +61,7 @@ do (modulePrefix = "amo.minmax") ->
         stop: ->
           console.log "stop"
       gameMaster = null
-      gameMaster = GameMaster gameMasterDelegate, [p1, p2]
+      gameMaster = GameMaster gameMasterDelegate, -> players[boardMaster.current.turn()]
       gameMaster.start()
 
 
