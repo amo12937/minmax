@@ -16,7 +16,7 @@
       .command
         %button.btn.btn-default(ng-click="play()") {{ "replay"|trans }}
     .configs
-      .config.form-group
-        %label.col-sm-1 {{ "level"|trans }}
+      .config.form-inline
+        %label {{ "level"|trans }}
         %select.form-control(ng-model="p2_level" ng-options="v for v in levels")
   
