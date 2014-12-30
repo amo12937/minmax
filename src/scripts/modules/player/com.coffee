@@ -5,8 +5,9 @@ do (moduleName = "amo.minmax.Player") ->
 
   .factory "#{moduleName}.Com", [
     "$timeout"
-    ($timeout) ->
-      (boardMaster, maxDepth = 7, delay = 0) ->
+    "#{moduleName}.PlayerBase"
+    ($timeout, PlayerBase) ->
+      (name, boardMaster, maxDepth = 7, delay = 0) ->
         l = [0 .. boardMaster.const.rank() - 1]
         choice = (depth) ->
           return [0, [0, 0]] if depth <= 0
@@ -45,7 +46,8 @@ do (moduleName = "amo.minmax.Player") ->
                 result = pos
           return [score, result]
           
-        play: (callback) ->
+        self = PlayerBase name
+        self.play = (callback) ->
           $timeout ->
             if boardMaster.current.isFirst()
               [_, pos] = choiceFirst maxDepth
@@ -54,4 +56,5 @@ do (moduleName = "amo.minmax.Player") ->
             boardMaster.select pos
             callback boardMaster.isFinished()
           , delay
+        self
   ]

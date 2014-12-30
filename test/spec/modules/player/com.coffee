@@ -7,13 +7,14 @@ describe "amo.minmax.Player の仕様", ->
 
   describe "Com の仕様", ->
     Com = null
+    name = "com"
     beforeEach ->
       inject ["#{moduleName}.Com", (_Com) ->
         Com = _Com
       ]
 
     it "boardMaster を受け取り、play 関数を持つオブジェクトを返す", ->
-      com = Com
+      com = Com name,
         const:
           rank: -> 7
       expect(com.play).toBeDefined()

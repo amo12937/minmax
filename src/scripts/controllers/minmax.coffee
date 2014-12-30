@@ -22,8 +22,14 @@ do (modulePrefix = "amo.minmax") ->
       $scope.max = 10
       $scope.rank = 7
       $scope.player = { "MAN", "COM" }
-      $scope.first = $scope.player.MAN
-      $scope.second = $scope.player.COM
+      $scope.first =
+        type: $scope.player.MAN
+        name: null
+        namePlaceHolder: -> "#{$scope.first.type} 1"
+      $scope.second =
+        type: $scope.player.COM
+        name: null
+        namePlaceHolder: -> "#{$scope.second.type} 2"
 
       man = null
       com = null
@@ -35,8 +41,8 @@ do (modulePrefix = "amo.minmax") ->
           console.log "stop"
 
       createPlayer = (player) ->
-        return Com $scope.boardMaster, 5, 1000 if player is $scope.player.COM
-        return Man $scope.boardMaster
+        return Com player.name, $scope.boardMaster, 5, 1000 if player.type is $scope.player.COM
+        return Man player.name, $scope.boardMaster
       $scope.createBoardMaster = ->
         min = $scope.min
         max = $scope.max
@@ -46,10 +52,11 @@ do (modulePrefix = "amo.minmax") ->
         $scope.boardMaster = BoardMaster board
         $scope.rankList = [0 .. rank - 1]
 
+        $scope.first.name ?= $scope.first.namePlaceHolder()
         p1 = createPlayer $scope.first
-        p1.id = -> "player1"
+
+        $scope.second.name ?= $scope.second.namePlaceHolder()
         p2 = createPlayer $scope.second
-        p2.id = -> "player2"
         gameMaster?.stop()
         gameMaster = GameMaster gameMasterDelegate, [p1, p2]
         gameMaster.start()

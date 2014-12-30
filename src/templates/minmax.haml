@@ -2,16 +2,18 @@
   .configs
     .config
       .sample {{ "hello"|trans }}
-    .config
+    .config.radio
       %span first:
-      %input(type="radio" ng-model="first" value="{{player.MAN}}") man
-      %input(type="radio" ng-model="first" value="{{player.COM}}") com
-    .config
+      %select(ng-model="first.type" ng-options="v for (k, v) in player")
+      %span name:
+      %input(type="text" ng-model="first.name" placeholder="{{first.namePlaceHolder()}}")
+    .config.radio
       %span second:
-      %input(type="radio" ng-model="second" value="{{player.MAN}}") man
-      %input(type="radio" ng-model="second" value="{{player.COM}}") com
+      %select(ng-model="second.type" ng-options="v for (k, v) in player")
+      %span name:
+      %input(type="text" ng-model="second.name" placeholder="{{second.namePlaceHolder()}}")
   .button
-    %button(ng-click="createBoardMaster()") create
+    %button.btn.btn-default(ng-click="createBoardMaster()") create
   .boardMaster
     .score
       .man {{ boardMaster.current.score(boardMaster.const.TURN.H) }}

@@ -5,20 +5,23 @@ do (moduleName = "amo.minmax.Player") ->
 
   .factory "#{moduleName}.Man", [
     "$q"
-    ($q) ->
-      (boardMaster) ->
+    "#{moduleName}.PlayerBase"
+    ($q, PlayerBase) ->
+      (name, boardMaster) ->
         deferred = null
-        choice: (p) ->
+        self = PlayerBase name
+        self.choice = (p) ->
           return unless deferred
           return unless boardMaster.selectable p
           deferred.resolve p
           deferred = null
-        play: (callback) ->
+        self.play = (callback) ->
           deferred = $q.defer()
           promise = deferred.promise
           promise.then (p) ->
             boardMaster.select p
             callback boardMaster.isFinished()
           return
+        self
   ]
 

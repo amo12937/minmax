@@ -7,13 +7,14 @@ describe "amo.minmax.Player モジュールの仕様", ->
 
   describe "Man の仕様", ->
     Man = null
+    name = "man"
     beforeEach ->
       inject ["#{moduleName}.Man", (_Man) ->
         Man = _Man
       ]
 
     it "boardMaster を受け取り、choice, play 関数を持つオブジェクトを返す", ->
-      man = Man {}
+      man = Man name, {}
       expect(man.choice).toBeDefined()
       expect(man.play).toBeDefined()
 
@@ -27,7 +28,7 @@ describe "amo.minmax.Player モジュールの仕様", ->
           selectable: jasmine.createSpy "selectable"
           select: jasmine.createSpy "select"
           isFinished: jasmine.createSpy "isFinished"
-        man = Man boardMaster
+        man = Man name, boardMaster
         inject ["$rootScope", (_$rootScope) ->
           $rootScope = _$rootScope
         ]
