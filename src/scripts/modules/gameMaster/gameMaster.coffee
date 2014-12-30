@@ -20,8 +20,7 @@ do (moduleName = "amo.minmax.GameMaster") ->
         Entry: defaultAction
         Exit: defaultAction
         start: defaultAction
-        finishP1: defaultAction
-        finishP2: defaultAction
+        finish: defaultAction
         endGame: defaultAction
         stop: -> setState STOPPED
         started: -> false

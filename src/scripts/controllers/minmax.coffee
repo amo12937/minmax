@@ -43,6 +43,7 @@ do (modulePrefix = "amo.minmax") ->
         p1.id = -> "player1"
         p2 = createPlayer $scope.second
         p2.id = -> "player2"
+        gameMaster?.stop()
         gameMaster = GameMaster gameMasterDelegate, [p1, p2]
         gameMaster.start()
 
