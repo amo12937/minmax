@@ -1,7 +1,18 @@
 .minmax
-  .configs
-    .config
-      .sample {{ "hello"|trans }}
+  .boardMaster
+    .score
+      .score-item.black.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.H)}") {{ boardMaster.current.score(boardMaster.const.TURN.H) }}
+      .score-item.white.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.V)}") {{ boardMaster.current.score(boardMaster.const.TURN.V) }}
+    .board
+      .row(ng-repeat="i in rankList")
+        .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" ng-click="clickCell(i, j)")
+          {{ boardMaster.get([i, j]) }}
+  .button
+    %button.btn.btn-default(ng-click="configOpening=!configOpening;")
+      %span(ng-hide="configOpening") {{ "config"|trans }}
+      %span(ng-show="configOpening") {{ "hide config"|trans }}
+    %button.btn.btn-default(ng-click="createBoardMaster()") {{ "start"|trans }}
+  .configs(ng-show="configOpening")
     .config.form-group
       %label.col-sm-1 {{ "black"|trans }}
       .form-inline
@@ -12,13 +23,3 @@
       .form-inline
         %select.form-control(ng-model="second.type" ng-options="v for (k, v) in player")
         %input.form-control(type="text" ng-model="second.name" placeholder="{{second.namePlaceHolder()}}")
-  .button
-    %button.btn.btn-default(ng-click="createBoardMaster()") {{ "start"|trans }}
-  .boardMaster
-    .score
-      .score-item.black.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.H)}") {{ boardMaster.current.score(boardMaster.const.TURN.H) }}
-      .score-item.white.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.V)}") {{ boardMaster.current.score(boardMaster.const.TURN.V) }}
-    .board
-      .row(ng-repeat="i in rankList")
-        .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" ng-click="clickCell(i, j)")
-          {{ boardMaster.get([i, j]) }}

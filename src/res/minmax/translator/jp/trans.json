@@ -1,5 +1,6 @@
 {
-"hello": "こんにちは",
+"config": "設定",
+"hide config": "隠す",
 "black": "先手",
 "white": "後手",
 "start": "開始",

@@ -18,6 +18,7 @@ do (modulePrefix = "amo.minmax") ->
     "#{modulePrefix}.Player.Com"
     "#{modulePrefix}.GameMaster.GameMaster"
     ($scope, RandomScoreCreator, Board, BoardMaster, Man, Com, GameMaster) ->
+      $scope.configOpening = true
       $scope.min = -10
       $scope.max = 10
       $scope.rank = 7
@@ -44,6 +45,7 @@ do (modulePrefix = "amo.minmax") ->
         return Com player.name, $scope.boardMaster, 5, 1000 if player.type is $scope.player.COM
         return Man player.name, $scope.boardMaster
       $scope.createBoardMaster = ->
+        $scope.configOpening = false
         min = $scope.min
         max = $scope.max
         rank = $scope.rank
@@ -63,4 +65,5 @@ do (modulePrefix = "amo.minmax") ->
 
       $scope.clickCell = (i, j) ->
         gameMaster.current().choice? [i, j]
+      $scope.createBoardMaster()
   ]
