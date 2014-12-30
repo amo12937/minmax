@@ -22,26 +22,22 @@ do (moduleName = "amo.minmax.GameMaster") ->
         start: defaultAction
         finishP1: defaultAction
         finishP2: defaultAction
-        end: defaultAction
+        endGame: defaultAction
         stop: -> setState STOPPED
         started: -> false
         done: -> false
         stopped: -> false
 
       INIT = new class extends DefaultState
-        start: -> setState TURN_P1
-      TURN_P1 = new class extends DefaultState
-        Entry: -> action.playP1()
-        finishP1: -> setState TURN_P2
-        end: -> setState DONE
-        started: -> true
-      TURN_P2 = new class extends DefaultState
-        Entry: -> action.playP2()
-        finishP2: -> setState TURN_P1
-        end: -> setState DONE
+        start: -> setState PLAYING
+      PLAYING = new class extends DefaultState
+        Entry: -> action.startPlaying()
+        Exit: -> action.finishPlaying()
+        finish: -> setState PLAYING
+        endGame: -> setState DONE
         started: -> true
       DONE = new class extends DefaultState
-        Entry: -> action.end()
+        Entry: -> action.endGame()
         stop: defaultAction
         done: -> true
       STOPPED = new class extends DefaultState
@@ -59,37 +55,40 @@ do (moduleName = "amo.minmax.GameMaster") ->
     "$timeout"
     "#{moduleName}.GameMasterFsm"
     ($timeout, Fsm) ->
-      (delegate) ->
-        fsm = null
-        Action = (p1, p2) ->
-          playP1: ->
+      makeRing = (players) ->
+        q = players[players.length - 1]
+        for p in players
+          do (r = p) ->
+            q.succ = -> r
+          q = p
+        return
+          
+      nextPlayer = (player) ->
+        return player.next?() or player.succ()
+
+      (delegate, players) ->
+        makeRing players
+        current = players[0]
+        fsm = Fsm
+          startPlaying: ->
             $timeout ->
-              console.log "turn = p1"
-              p1.play (ended) ->
+              console.log "turn = #{current.id()}"
+              current.play (ended) ->
                 if ended
-                  fsm().end()
+                  fsm().endGame()
                 else
-                  fsm().finishP1()
-                return
-          playP2: ->
-            $timeout ->
-              console.log "turn = p2"
-              p2.play (ended) ->
-                if ended
-                  fsm().end()
-                else
-                  fsm().finishP2()
-                return
-          end: ->
-            delegate.end?()
+                  fsm().finish()
+          finishPlaying: ->
+            current = nextPlayer current
+          endGame: ->
+            delegate.endGame?()
           stop: ->
             delegate.stop?()
 
         self =
-          start: (p1, p2) ->
-            self.stop()
-            fsm = Fsm Action p1, p2
+          start: ->
             fsm().start()
+          current: -> current
           stop: ->
             fsm?().stop()
           started: ->
