@@ -44,7 +44,7 @@ do (modulePrefix = "amo.minmax") ->
       createPlayer = (player) ->
         return Com player.name, $scope.boardMaster, 5, 1000 if player.type is $scope.player.COM
         return Man player.name, $scope.boardMaster
-      $scope.createBoardMaster = ->
+      $scope.play = ->
         $scope.configOpening = false
         min = $scope.min
         max = $scope.max
@@ -65,5 +65,5 @@ do (modulePrefix = "amo.minmax") ->
 
       $scope.clickCell = (i, j) ->
         gameMaster.current().choice? [i, j]
-      $scope.createBoardMaster()
+      $scope.play()
   ]

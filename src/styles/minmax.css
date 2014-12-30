@@ -3,14 +3,9 @@
   margin: 0 auto;
 }
 
-.minmax .button {
-  width: 320px;
-  margin: 0 auto 20px;
-}
-
 .minmax .boardMaster {
   width: 280px;
-  margin: 0 auto;
+  margin: 15px auto;
 }
 
 .minmax .boardMaster .score .score-item {
@@ -45,4 +40,8 @@
 
 .minmax .panel.used {
   background-color: #888888;
+}
+
+.minmax .configs {
+  margin: 15px inherit;
 }

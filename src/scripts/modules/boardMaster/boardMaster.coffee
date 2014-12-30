@@ -51,6 +51,8 @@ do (moduleName = "amo.minmax.BoardMaster") ->
             return p[_v] is pos[_v] and p[_h] is pos[_v]
           isFirst: ->
             return pos[_v] is undefined and pos[_h] is undefined
+          winner: (t) ->
+            return pos[t] > pos[_nextTurn t]
 
         get: (p) -> board.get p
 
