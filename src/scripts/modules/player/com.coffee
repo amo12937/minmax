@@ -46,11 +46,11 @@ do (moduleName = "amo.minmax.Player") ->
           return [score, result]
           
         play: (callback) ->
-          if boardMaster.current.isFirst()
-            [_, pos] = choiceFirst maxDepth
-          else
-            [_, pos] = choice maxDepth
           $timeout ->
+            if boardMaster.current.isFirst()
+              [_, pos] = choiceFirst maxDepth
+            else
+              [_, pos] = choice maxDepth
             boardMaster.select pos
             callback boardMaster.isFinished()
           , delay
