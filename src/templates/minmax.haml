@@ -12,8 +12,9 @@
         .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" ng-click="clickCell(i, j)")
           {{ boardMaster.get([i, j]) }}
   .menu(ng-show="boardMaster.isFinished()")
-    .command
-      %button.btn.btn-default(ng-click="play()") replay
+    .commands
+      .command
+        %button.btn.btn-default(ng-click="play()") {{ "replay"|trans }}
     .configs
       .config.form-group
         %label.col-sm-1 {{ "black"|trans }}

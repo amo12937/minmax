@@ -42,6 +42,10 @@
   background-color: #888888;
 }
 
-.minmax .configs {
-  margin: 15px inherit;
+.minmax .menu {
+  margin: 15px auto;
+}
+
+.minmax .command {
+  text-align: center;
 }
