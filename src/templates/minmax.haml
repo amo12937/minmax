@@ -16,9 +16,9 @@
     %button.btn.btn-default(ng-click="createBoardMaster()") create
   .boardMaster
     .score
-      .man {{ boardMaster.current.score(boardMaster.const.TURN.H) }}
-      .com {{ boardMaster.current.score(boardMaster.const.TURN.V) }}
+      .score-item.black.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.H)}") {{ boardMaster.current.score(boardMaster.const.TURN.H) }}
+      .score-item.white.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.V)}") {{ boardMaster.current.score(boardMaster.const.TURN.V) }}
     .board
-      .row(ng-repeat="i in rankList" style="clear:both; display: table;")
-        .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" style="width: 40px; height: 40px; border: solid 1px; float:left; display: table-cell; text-align: center; vertical-align: middle;" ng-click="clickCell(i, j)")
+      .row(ng-repeat="i in rankList")
+        .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" ng-click="clickCell(i, j)")
           {{ boardMaster.get([i, j]) }}

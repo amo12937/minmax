@@ -39,10 +39,13 @@ do (moduleName = "amo.minmax.BoardMaster") ->
             H: _h
             V: _v
         current:
-          turn: -> turn
-          score: (turn) ->
-            return [score[_v], score[_h]] if turn is undefined
-            return score[turn]
+          turn: (t) ->
+            return turn if t is undefined
+            return turn is t
+
+          score: (t) ->
+            return [score[_v], score[_h]] if t is undefined
+            return score[t]
           position: (p) ->
             return [pos[_v], pos[_h]] if p is undefined
             return p[_v] is pos[_v] and p[_h] is pos[_v]
