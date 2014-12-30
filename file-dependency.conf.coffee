@@ -36,6 +36,7 @@ module.exports =
   test:
     files: [
       "<%= context.dir.vendor %>/angular/angular.js"
+      "<%= context.dir.vendor %>/angular-route/angular-route.js"
       "<%= context.dir.vendor %>/angular-mocks/angular-mocks.js"
       "<%= context.dir.src %>/scripts/modules/player/player.coffee"
       "<%= context.dir.src %>/scripts/minmax/translator/translator.coffee"
