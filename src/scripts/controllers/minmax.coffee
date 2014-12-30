@@ -1,7 +1,13 @@
 "use strict"
 
 do (modulePrefix = "amo.minmax") ->
-  angular.module "#{modulePrefix}.controllers", ["ng", "#{modulePrefix}.BoardMaster", "#{modulePrefix}.Player", "#{modulePrefix}.GameMaster"]
+  angular.module "#{modulePrefix}.controllers", [
+    "ng"
+    "#{modulePrefix}.BoardMaster"
+    "#{modulePrefix}.Player"
+    "#{modulePrefix}.GameMaster"
+    "#{modulePrefix}.module.Translator"
+]
   .controller "#{modulePrefix}.controllers.minmax", [
     "$scope"
     "#{modulePrefix}.BoardMaster.RandomScoreCreator"
@@ -10,7 +16,8 @@ do (modulePrefix = "amo.minmax") ->
     "#{modulePrefix}.Player.Man"
     "#{modulePrefix}.Player.Com"
     "#{modulePrefix}.GameMaster.GameMaster"
-    ($scope, RandomScoreCreator, Board, BoardMaster, Man, Com, GameMaster) ->
+    "#{modulePrefix}.module.Translator.loader.trans"
+    ($scope, RandomScoreCreator, Board, BoardMaster, Man, Com, GameMaster, transLoader) ->
       $scope.min = -10
       $scope.max = 10
       $scope.rank = 7
@@ -49,4 +56,11 @@ do (modulePrefix = "amo.minmax") ->
 
       $scope.clickCell = (i, j) ->
         gameMaster.current().choice? [i, j]
+
+      $scope.trans =
+        rules: transLoader.rules
+        selectedRule: transLoader.defaultRule
+        onChange: ->
+          transLoader.load $scope.trans.selectedRule
+        trans: (key) -> transLoader.trans[key] or key
   ]

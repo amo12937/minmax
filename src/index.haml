@@ -1,11 +1,15 @@
 %html
   %head
     %title minmax
+    %meta(http-equiv="Content-Type" content="text/html: charset=UTF-8")
     %script(src="vendor/angular/angular.js")
     %script(src="vendor/requirejs/require.js" data-main="scripts/main.js")
     %link(href="styles/minmax.css" rel="stylesheet")
   %body(ng-controller="amo.minmax.controllers.minmax")
     .configs
+      .config
+        %select(ng-model="trans.selectedRule" ng-options="v.key as v.displayName for v in trans.rules" ng-change="trans.onChange()")
+        .sample {{ trans.trans("hello") }}
       .config
         %span min = 
         %input(type="text" ng-model="min")

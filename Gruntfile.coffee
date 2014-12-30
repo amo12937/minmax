@@ -79,6 +79,9 @@ module.exports = (grunt) ->
       vendor:
         src: "<%= context.dir.vendor %>"
         dest: "<%= context.dir.dist %>/vendor"
+      resource:
+        src: "<%= context.dir.src %>/res"
+        dest: "<%= context.dir.dist %>/res"
     karma:
       unit:
         configFile: "karma.conf.coffee"
@@ -161,6 +164,7 @@ module.exports = (grunt) ->
     "makeMainJs:target"
     "copy:styles"
     "symlink:vendor"
+    "symlink:resource"
   ]
 
 # tasks for test

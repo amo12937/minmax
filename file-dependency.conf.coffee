@@ -17,11 +17,15 @@ module.exports =
       shim:
         "modules/player/man": ["modules/player/player"]
         "modules/player/com": ["modules/player/player"]
+        "minmax/translator/translator": ["modules/translator/translatorCollection"]
+        "minmax/translator/apis/getRule": ["minmax/translator/translator"]
+        "minmax/translator/loader/trans": ["minmax/translator/translator", "minmax/translator/apis/getRule"]
         "controllers/minmax": [
           "modules/boardMaster/boardMaster"
           "modules/gameMaster/gameMaster"
           "modules/player/man"
           "modules/player/com"
+          "minmax/translator/loader/trans"
         ]
         "app": ["controllers/minmax"]
         "bootstrap": ["app"]
@@ -31,6 +35,7 @@ module.exports =
       "<%= context.dir.vendor %>/angular/angular.js"
       "<%= context.dir.vendor %>/angular-mocks/angular-mocks.js"
       "<%= context.dir.src %>/scripts/modules/player/player.coffee"
+      "<%= context.dir.src %>/scripts/minmax/translator/translator.coffee"
       "<%= context.dir.src %>/scripts/**/*.coffee"
       "<%= context.dir.test %>/spec/**/*.coffee"
     ]

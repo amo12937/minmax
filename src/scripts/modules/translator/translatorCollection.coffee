@@ -20,7 +20,7 @@ do (moduleName = "amo.module.Translator") ->
     _collection = {}
 
     registerTranslator: (name) ->
-      $filterProvider.register name, ["translatorCollection", (tc) ->
+      $filterProvider.register name, ["#{moduleName}.translatorCollection", (tc) ->
         translator = tc.getTranslator name
         return -> translator.translate.apply translator, arguments
       ]
