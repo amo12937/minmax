@@ -57,10 +57,9 @@ do (modulePrefix = "amo.minmax") ->
       $scope.clickCell = (i, j) ->
         gameMaster.current().choice? [i, j]
 
-      $scope.trans =
-        rules: transLoader.rules
+      $scope.transConfig =
         selectedRule: transLoader.defaultRule
+        rules: transLoader.rules
         onChange: ->
-          transLoader.load $scope.trans.selectedRule
-        trans: (key) -> transLoader.trans[key] or key
+          transLoader.load $scope.transConfig.selectedRule
   ]

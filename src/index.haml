@@ -8,8 +8,8 @@
   %body(ng-controller="amo.minmax.controllers.minmax")
     .configs
       .config
-        %select(ng-model="trans.selectedRule" ng-options="v.key as v.displayName for v in trans.rules" ng-change="trans.onChange()")
-        .sample {{ trans.trans("hello") }}
+        %select(ng-model="transConfig.selectedRule" ng-options="v.key as v.displayName for v in transConfig.rules" ng-change="transConfig.onChange()")
+        .sample {{ trans("hello") }}
       .config
         %span min = 
         %input(type="text" ng-model="min")

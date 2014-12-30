@@ -5,8 +5,8 @@ do (moduleName = "amo.minmax.module.Translator") ->
   translatorName = "trans"
 
   angular.module moduleName
-  .config ["#{translatorModuleName}.translatorCollectionProvider", (tcProvider) ->
-    tcProvider.registerTranslator translatorName
+  .run ["$rootScope", "#{translatorModuleName}.translatorCollection", ($rootScope, tc) ->
+    $rootScope.trans = tc.getTranslator translatorName
   ]
   .factory "#{moduleName}.loader.trans", [
     "#{translatorModuleName}.translatorCollection"
@@ -17,14 +17,10 @@ do (moduleName = "amo.minmax.module.Translator") ->
       self =
         rules: config.loader.trans.rules
         defaultRule: config.loader.trans.defaultRule
-        trans: {}
         load: (rulesKey) ->
           translator.setRules {}
-          self.trans = {}
           GetRuleApi().request "#{rulesKey}/#{translatorName}"
           .then (response) ->
-            console.log response.data
-            self.trans = response.data
             translator.setRules response.data
       self.load self.defaultRule
       return self
