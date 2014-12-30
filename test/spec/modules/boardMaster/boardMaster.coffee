@@ -59,13 +59,15 @@ describe "amo.minmax.BoardMaster モジュールの仕様", ->
       for data in dataProvider
         func.apply @, data
 
-    it "set で値をセットできる", ->
+    it "使うという概念がある", ->
+      target = [3, 3]
       board = Board rank, createScore, outside
-      board.set [3, 3], 1000
-      expect(board.get [3, 3]).toBe 1000
-      board.set [-1, -1], 1000
-      expect(board.get [-1, -1]).toBe outside
-
+      expect(board.used target).toBe false
+      board.use target
+      expect(board.used target).toBe true
+      board.unuse target
+      expect(board.used target).toBe false
+      
   describe "BoardMaster の仕様", ->
     rank = 7
     outside = "outside"
@@ -110,7 +112,7 @@ describe "amo.minmax.BoardMaster モジュールの仕様", ->
         p = [1, 1]
         expect(boardMaster.get p).toBe 11
         boardMaster.select p
-        expect(boardMaster.get p).not.toBe 11
+        expect(boardMaster.get p).toBe 11
 
     describe "used は", ->
       it "その位置のスコアが使われたかどうかを返す", ->
