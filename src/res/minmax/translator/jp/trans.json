@@ -1,5 +1,13 @@
 {
 "replay": "もう一度",
 "level": "レベル",
+"How to play": "遊び方",
+"It is the game to compete the total score by taking panel alternately.": "パネルを交互に取っていき、合計得点を競うゲームである。",
+"First-move can choose any panel at first.": "先手は好きな位置から始められる。",
+"Second-move can choose the panel on the same col that chosen by First-move.": "後手は、先手が選んだ位置を含む縦一列の中からパネルを選ぶ。",
+"First-move can choose the panel on the same row that chosen by Second-move.": "再び先手は、後手が選んだパネルを含む横一列の中からパネルを選ぶ。",
+"You can not choose the panel already chosen.": "一度選んだパネルは選べない。",
+"You can not pass.": "パスはできない。",
+"The game ends when no panels can choose.": "パネルを選ぶことが出来なかった時点で、合計得点の高い方の勝ちである。",
 "LAST_DUMMY": "LAST_DUMMY"
 }

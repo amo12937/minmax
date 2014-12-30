@@ -19,4 +19,14 @@
       .config.form-inline
         %label {{ "level"|trans }}
         %select.form-control(ng-model="p2_level" ng-options="v for v in levels")
+  .help
+    %h2 {{ "How to play"|trans }}
+    %ul
+      %li {{ "It is the game to compete the total score by taking panel alternately."|trans }}
+      %li {{ "First-move can choose any panel at first."|trans }}
+      %li {{ "Second-move can choose the panel on the same col that chosen by First-move."|trans }}
+      %li {{ "First-move can choose the panel on the same row that chosen by Second-move."|trans }}
+      %li {{ "You can not choose the panel already chosen."|trans }}
+      %li {{ "You can not pass."|trans }}
+      %li {{ "The game ends when no panels can choose."|trans}}
   
