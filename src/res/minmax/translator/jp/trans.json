@@ -1,5 +1,7 @@
 {
 "hello": "こんにちは",
 "black": "先手",
-"white": "後手"
+"white": "後手",
+"start": "開始",
+"LAST_DUMMY": "LAST_DUMMY"
 }
