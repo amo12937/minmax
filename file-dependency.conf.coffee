@@ -19,15 +19,18 @@ module.exports =
         "modules/player/com": ["modules/player/player"]
         "minmax/translator/translator": ["modules/translator/translatorCollection"]
         "minmax/translator/apis/getRule": ["minmax/translator/translator"]
-        "minmax/translator/loader/trans": ["minmax/translator/translator", "minmax/translator/apis/getRule"]
+        "minmax/translator/transResolver": ["minmax/translator/translator", "minmax/translator/apis/getRule"]
         "controllers/minmax": [
           "modules/boardMaster/boardMaster"
           "modules/gameMaster/gameMaster"
           "modules/player/man"
           "modules/player/com"
-          "minmax/translator/loader/trans"
         ]
-        "app": ["controllers/minmax"]
+        "controllers/route": [
+          "controllers/minmax"
+          "minmax/translator/transResolver"
+        ]
+        "app": ["controllers/minmax", "controllers/route"]
         "bootstrap": ["app"]
       deps: ["bootstrap"]
   test:

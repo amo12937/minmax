@@ -3,6 +3,7 @@
 do (modulePrefix = "amo.minmax") ->
   angular.module "#{modulePrefix}.controllers", [
     "ng"
+    "ngRoute"
     "#{modulePrefix}.BoardMaster"
     "#{modulePrefix}.Player"
     "#{modulePrefix}.GameMaster"
@@ -16,8 +17,7 @@ do (modulePrefix = "amo.minmax") ->
     "#{modulePrefix}.Player.Man"
     "#{modulePrefix}.Player.Com"
     "#{modulePrefix}.GameMaster.GameMaster"
-    "#{modulePrefix}.module.Translator.loader.trans"
-    ($scope, RandomScoreCreator, Board, BoardMaster, Man, Com, GameMaster, transLoader) ->
+    ($scope, RandomScoreCreator, Board, BoardMaster, Man, Com, GameMaster) ->
       $scope.min = -10
       $scope.max = 10
       $scope.rank = 7
@@ -56,10 +56,4 @@ do (modulePrefix = "amo.minmax") ->
 
       $scope.clickCell = (i, j) ->
         gameMaster.current().choice? [i, j]
-
-      $scope.transConfig =
-        selectedRule: transLoader.defaultRule
-        rules: transLoader.rules
-        onChange: ->
-          transLoader.load $scope.transConfig.selectedRule
   ]

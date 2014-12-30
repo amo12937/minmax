@@ -3,37 +3,8 @@
     %title minmax
     %meta(http-equiv="Content-Type" content="text/html: charset=UTF-8")
     %script(src="vendor/angular/angular.js")
+    %script(src="vendor/angular-route/angular-route.js")
     %script(src="vendor/requirejs/require.js" data-main="scripts/main.js")
     %link(href="styles/minmax.css" rel="stylesheet")
-  %body(ng-controller="amo.minmax.controllers.minmax")
-    .configs
-      .config
-        %select(ng-model="transConfig.selectedRule" ng-options="v.key as v.displayName for v in transConfig.rules" ng-change="transConfig.onChange()")
-        .sample {{ trans("hello") }}
-      .config
-        %span min = 
-        %input(type="text" ng-model="min")
-      .config
-        %span max =
-        %input(type="text" ng-model="max")
-      .config
-        %span rank =
-        %input(type="text" ng-model="rank")
-      .config
-        %span first:
-        %input(type="radio" ng-model="first" value="{{player.MAN}}") man
-        %input(type="radio" ng-model="first" value="{{player.COM}}") com
-      .config
-        %span second:
-        %input(type="radio" ng-model="second" value="{{player.MAN}}") man
-        %input(type="radio" ng-model="second" value="{{player.COM}}") com
-    .button
-      %button(ng-click="createBoardMaster()") create
-    .boardMaster
-      .score
-        .man {{ boardMaster.current.score(boardMaster.const.TURN.H) }}
-        .com {{ boardMaster.current.score(boardMaster.const.TURN.V) }}
-      .board
-        .row(ng-repeat="i in rankList" style="clear:both; display: table;")
-          .panel(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" style="width: 50px; height: 50px; border: solid 1px; float:left; display: table-cell; text-align: center; vertical-align: middle;" ng-click="clickCell(i, j)")
-            {{ boardMaster.get([i, j]) }}
+  %body
+    .container(ng-view)
