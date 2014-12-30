@@ -9,8 +9,9 @@ do (moduleName = "amo.minmax.Player") ->
       (boardMaster) ->
         deferred = null
         choice: (p) ->
+          return unless deferred
           return unless boardMaster.selectable p
-          deferred?.resolve p
+          deferred.resolve p
           deferred = null
         play: (callback) ->
           deferred = $q.defer()
