@@ -11,15 +11,19 @@
       .row(ng-repeat="i in rankList")
         .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" ng-click="clickCell(i, j)" style="width: 40px; height: 40px;")
           .inner-panel {{ boardMaster.get([i, j]) }}
+  .sns
+    .twitter
+      %a.twitter-hashtag-button(href="https://twitter.com/intent/tweet?button_hashtag=minmaxO_O&text=minmax" data-related="amoO_O" data-url="http://amo12937.github.io/minmax_web/") Tweet #minmaxO_O
+      %script(type="text/javascript-lazy")
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
   .result(ng-show="boardMaster.isFinished()")
     %label(ng-show="boardMaster.current.result() == 0") {{ "Drawn!"|trans }}
     %label(ng-hide="boardMaster.current.result() == 0") {{ "%name% win!"|trans:{name:winner.name} }}
   .menu(ng-show="boardMaster.isFinished()")
-    .commands
-      .command
+    .form-inline
+      .form-group
         %button.btn.btn-default(ng-click="play()") {{ "replay"|trans }}
-    .configs
-      .config.form-inline
+      .form-group
         %label {{ "level"|trans }}
         %select.form-control(ng-model="p2_level" ng-options="v for v in levels")
   .help

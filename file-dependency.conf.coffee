@@ -33,7 +33,7 @@ module.exports =
           "controllers/minmax"
           "minmax/translator/transResolver"
         ]
-        "app": ["controllers/minmax", "controllers/route"]
+        "app": ["controllers/minmax", "controllers/route", "modules/ngLoadScript/ngLoadScript"]
         "bootstrap": ["app"]
       deps: ["bootstrap"]
   test:

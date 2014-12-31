@@ -32,7 +32,7 @@ module.exports = (grunt) ->
         files: [
           dot: true
           src: [
-            "<%= context.dir.dist %>"
+            "<%= context.dir.dist %>/**/*"
           ]
         ]
       deploy:
