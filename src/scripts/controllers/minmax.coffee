@@ -44,7 +44,7 @@ do (modulePrefix = "amo.minmax") ->
         p1_name: opts.p1_name or translator "You"
         p1_level: toNum opts.p1_level, 5
         p1_delay: toNum opts.p1_delay, 100
-        p2: opts.p2 or playerTypes.COM
+        p2: opts.p2 or playerTypes.COMAB
         p2_name: opts.p2_name or translator "Com"
         p2_level: toNum opts.p2_level, 5
         p2_delay: toNum opts.p2_delay, 100
