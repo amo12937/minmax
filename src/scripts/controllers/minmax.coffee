@@ -18,16 +18,20 @@ do (modulePrefix = "amo.minmax") ->
     "#{modulePrefix}.BoardMaster.BoardMaster"
     "#{modulePrefix}.Player.Man"
     "#{modulePrefix}.Player.Com"
+    "#{modulePrefix}.Player.Com.AlphaBeta"
     "#{modulePrefix}.GameMaster.GameMaster"
-    ($location, $route, $scope, RandomScoreCreator, Board, BoardMaster, Man, Com, GameMaster) ->
-      playerTypes = {"MAN", "COM"}
+    ($location, $route, $scope, RandomScoreCreator, Board, BoardMaster, Man, Com, ComAB, GameMaster) ->
+      playerTypes = {"MAN", "COM", "COMAB"}
+      playerClass =
+        MAN: Man
+        COM: Com
+        COMAB: ComAB
       toNum = (n, d) ->
         return d unless n
         return Number n
 
       createPlayer = (type, name, level, delay) ->
-        return Com name, $scope.boardMaster, Math.max(level, 1), Math.max(delay, 0) if type is playerTypes.COM
-        return Man name, $scope.boardMaster
+        return playerClass[type] name, $scope.boardMaster, Math.max(level, 1), Math.max(delay, 0)
 
       opts = $location.search()
       options =

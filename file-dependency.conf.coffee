@@ -17,6 +17,7 @@ module.exports =
       shim:
         "modules/player/man": ["modules/player/player"]
         "modules/player/com": ["modules/player/player"]
+        "modules/player/alphaBeta": ["modules/player/player"]
         "minmax/translator/translator": ["modules/translator/translatorCollection"]
         "minmax/translator/apis/getRule": ["minmax/translator/translator"]
         "minmax/translator/transResolver": ["minmax/translator/translator", "minmax/translator/apis/getRule"]
@@ -25,6 +26,7 @@ module.exports =
           "modules/gameMaster/gameMaster"
           "modules/player/man"
           "modules/player/com"
+          "modules/player/alphaBeta"
         ]
         "controllers/route": [
           "controllers/minmax"
