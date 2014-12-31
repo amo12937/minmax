@@ -13,7 +13,7 @@
           .inner-panel {{ boardMaster.get([i, j]) }}
   .sns
     .twitter
-      %a.twitter-hashtag-button(href="https://twitter.com/intent/tweet?button_hashtag=minmaxO_O&text=minmax" data-related="amoO_O" data-url="http://amo12937.github.io/minmax_web/") Tweet #minmaxO_O
+      %a.twitter-hashtag-button(href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Famo12937.github.io%2Fminmax_web%2F&text=now%20playing%20%23minmaxO_O&url=http%3A%2F%2Famo12937.github.io%2Fminmax_web%2F") Tweet
       %script(type="text/javascript-lazy")
         !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
   .result(ng-show="boardMaster.isFinished()")
