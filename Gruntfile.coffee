@@ -16,7 +16,8 @@ module.exports = (grunt) ->
         test: "test"
         tmp: ".tmp"
         compiled: ".tmp/compiled"
-        dist: "web"
+        dist: ".web"
+        deploy: "web"
         vendor: "bower_components"
     fileDeps: fileDeps
     clean:
@@ -32,6 +33,13 @@ module.exports = (grunt) ->
           dot: true
           src: [
             "<%= context.dir.dist %>"
+          ]
+        ]
+      deploy:
+        files: [
+          dot: false
+          src: [
+            "<%= context.dir.deploy %>"
           ]
         ]
     haml:
@@ -87,25 +95,40 @@ module.exports = (grunt) ->
           src: ["**/*.css"]
           dest: "<%= context.dir.dist %>"
         }]
-      resource:
+      deploy:
         files: [{
+          expand: true
+          cwd: "<%= context.dir.compiled %>"
+          src: ["**/*.{html,js,map}"]
+          dest: "<%= context.dir.deploy %>"
+        }, {
+          expand: true
+          cwd: "<%= context.dir.src %>"
+          src: ["**/*.css"]
+          dest: "<%= context.dir.deploy %>"
+        }, {
+          expand: true
+          cwd: "<%= context.dir.vendor %>"
+          src: ["**/*"]
+          dest: "<%= context.dir.deploy %>/vendor"
+        }, {
           expand: true
           cwd: "<%= context.dir.src %>/res"
           src: ["**/*"]
-          dest: "<%= context.dir.dist %>/res"
+          dest: "<%= context.dir.deploy %>/res"
         }]
     concat:
       options:
         separator: ";"
       vendor:
         src: fileDeps.vendor.src.map (src) -> "<%= context.dir.vendor %>/#{src}"
-        dest: "<%= context.dir.dist %>/scripts/<%= fileDeps.vendor.name %>"
+        dest: "<%= context.dir.deploy %>/scripts/<%= fileDeps.vendor.name %>"
       scripts:
         dest: "<%= context.dir.compiled %>/scripts/scripts.js"
     uglify:
       scripts:
         src: "<%= context.dir.compiled %>/scripts/scripts.js"
-        dest: "<%= context.dir.dist %>/scripts/scripts.min.js"
+        dest: "<%= context.dir.deploy %>/scripts/scripts.min.js"
     symlink:
       vendor:
         src: "<%= context.dir.vendor %>"
@@ -201,18 +224,15 @@ module.exports = (grunt) ->
 
   grunt.registerTask "deploy", [
     "clean:intermediate"
-    "clean:target"
+    "clean:deploy"
     "haml:compile"
     "haml:deploy"
-    "copy:templates"
     "coffee:compile"
     "makePriority:scripts"
     "concat:vendor"
     "concat:scripts"
     "uglify:scripts"
-    "copy:styles"
-    "symlink:vendor"
-    "copy:resource"
+    "copy:deploy"
     "clean:intermediate"
   ]
 
