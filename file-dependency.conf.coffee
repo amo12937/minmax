@@ -6,6 +6,7 @@ module.exports =
     ext: ".js"
     src: [
       "angular/angular.min.js"
+      "angular-route/angular-route.min.js"
     ]
   require:
     name: "require.js"

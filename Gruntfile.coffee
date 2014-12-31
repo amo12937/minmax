@@ -7,6 +7,8 @@ module.exports = (grunt) ->
   require("load-grunt-tasks") grunt
   require("time-grunt") grunt
 
+  fileDeps = loadConfig "file-dependency.conf.coffee"
+
   grunt.initConfig
     context:
       dir:
@@ -16,7 +18,7 @@ module.exports = (grunt) ->
         compiled: ".tmp/compiled"
         dist: "web"
         vendor: "bower_components"
-    fileDeps: loadConfig "file-dependency.conf.coffee"
+    fileDeps: fileDeps
     clean:
       intermediate:
         files: [
@@ -36,10 +38,20 @@ module.exports = (grunt) ->
       compile:
         files: [{
           expand: true
-          cwd: "<%= context.dir.src %>"
+          cwd: "<%= context.dir.src %>/templates"
           src: "**/*.haml"
-          dest: "<%= context.dir.compiled %>"
+          dest: "<%= context.dir.compiled %>/templates"
           ext: ".html"
+        }]
+      dev:
+        files: [{
+          src: "<%= context.dir.src %>/index_DEV.haml"
+          dest: "<%= context.dir.compiled %>/index.html"
+        }]
+      deploy:
+        files: [{
+          src: "<%= context.dir.src %>/index_DEPLOY.haml"
+          dest: "<%= context.dir.compiled %>/index.html"
         }]
     coffee:
       compile:
@@ -75,6 +87,25 @@ module.exports = (grunt) ->
           src: ["**/*.css"]
           dest: "<%= context.dir.dist %>"
         }]
+      resource:
+        files: [{
+          expand: true
+          cwd: "<%= context.dir.src %>/res"
+          src: ["**/*"]
+          dest: "<%= context.dir.dist %>/res"
+        }]
+    concat:
+      options:
+        separator: ";"
+      vendor:
+        src: fileDeps.vendor.src.map (src) -> "<%= context.dir.vendor %>/#{src}"
+        dest: "<%= context.dir.dist %>/scripts/<%= fileDeps.vendor.name %>"
+      scripts:
+        dest: "<%= context.dir.compiled %>/scripts/scripts.js"
+    uglify:
+      scripts:
+        src: "<%= context.dir.compiled %>/scripts/scripts.js"
+        dest: "<%= context.dir.dist %>/scripts/scripts.min.js"
     symlink:
       vendor:
         src: "<%= context.dir.vendor %>"
@@ -103,10 +134,10 @@ module.exports = (grunt) ->
     makePriority:
       scripts:
         options:
-          baseUrl: "<%= context.dir.dist %>"
+          baseUrl: "<%= context.dir.compiled %>/scripts"
         deps: "<%= fileDeps.main.deps.shim %>"
         done: (priority) ->
-          # priority には js ファイルのリストが入っている。
+          grunt.config.set "concat.scripts.src", priority
     watch:
       options:
         spawn: false
@@ -158,6 +189,7 @@ module.exports = (grunt) ->
     "clean:intermediate"
     "clean:target"
     "haml:compile"
+    "haml:dev"
     "copy:templates"
     "coffee:compile"
     "copy:scripts"
@@ -165,6 +197,23 @@ module.exports = (grunt) ->
     "copy:styles"
     "symlink:vendor"
     "symlink:resource"
+  ]
+
+  grunt.registerTask "deploy", [
+    "clean:intermediate"
+    "clean:target"
+    "haml:compile"
+    "haml:deploy"
+    "copy:templates"
+    "coffee:compile"
+    "makePriority:scripts"
+    "concat:vendor"
+    "concat:scripts"
+    "uglify:scripts"
+    "copy:styles"
+    "symlink:vendor"
+    "copy:resource"
+    "clean:intermediate"
   ]
 
 # tasks for test

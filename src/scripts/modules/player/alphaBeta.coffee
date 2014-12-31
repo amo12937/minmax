@@ -33,30 +33,10 @@ do (moduleName = "amo.minmax.Player") ->
               return a                                 # ここで返ってくるのは、評価値 a が b つまりひとつ上の S - A を上回った場合(a >= S - A)。ひとつ上では、T = S - a として、 T > A が評価されるが、a >= S - A より T = S - a <= A だから、T は必ず A を下回っているので、この T によって A が上書きされることはない。for 文を回して次の評価値 t2 を調べても、t より小さければ採択されず、大きければやはり上で採択されないので、これ以上調べても意味がない。ゆえに、ここで返しても問題無い。
           return a
 
-#        choice = (depth) ->
-#          return [0, [0, 0]] if depth <= 0
-#          return [0, [0, 0]] if boardMaster.isFinished()
-#          pos = boardMaster.current.position()
-#          turn = boardMaster.current.turn()
-#          score = -Infinity
-#          result = 0
-#          for i in l
-#            pos[turn] = i
-#            continue unless boardMaster.selectable pos
-#            boardMaster.select pos
-#            s = boardMaster.current.score turn
-#            [t, _] = choice depth - 1
-#            S = s - t
-#            boardMaster.undo()
-#            if S > score
-#              score = S
-#              result = i
-#          pos[turn] = result
-#          return [score, pos]
-#
         choiceFirst = (depth) ->
           score = -Infinity
           result = [0, 0]
+          turn = boardMaster.current.turn()
           for i in l
             for j in l
               pos = [i, j]
