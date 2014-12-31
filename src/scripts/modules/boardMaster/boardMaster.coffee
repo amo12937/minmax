@@ -3,6 +3,7 @@
 do (moduleName = "amo.minmax.BoardMaster") ->
   _white = 0
   _black = 1
+
   _nextTurn = (turn) -> 1 - turn
   _used = "**"
 
@@ -57,7 +58,8 @@ do (moduleName = "amo.minmax.BoardMaster") ->
             return p[_white] is pos[_white] and p[_black] is pos[_white]
           isFirst: ->
             return pos[_white] is undefined and pos[_black] is undefined
-          winner: (t) ->
+          result: (t) ->
+            return score[_black] - score[_white] if t is undefined
             return score[t] > score[_nextTurn t]
 
         get: (p) -> board.get p

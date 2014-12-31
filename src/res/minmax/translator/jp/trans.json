@@ -1,6 +1,10 @@
 {
 "replay": "もう一度",
 "level": "レベル",
+"You": "あなた",
+"Com": "コンピュータ",
+"Drawn!": "引き分け",
+"%name% win!": "%name% の勝ち！",
 "How to play": "遊び方",
 "It is the game to compete the total score by taking panel alternately.": "パネルを交互に取っていき、合計得点を競うゲームである。",
 "First-move can choose any panel at first.": "先手は好きな位置から始められる。",

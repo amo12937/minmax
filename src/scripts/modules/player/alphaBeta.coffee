@@ -15,7 +15,7 @@ do (moduleName = "amo.minmax.Player") ->
           pos = boardMaster.current.position()         # 現在の位置
           turn = boardMaster.current.turn()            # 自分のターン
           if boardMaster.isFinished()
-            if boardMaster.current.winner turn
+            if boardMaster.current.result turn
               return Infinity
             else
               return -Infinity

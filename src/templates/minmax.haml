@@ -2,15 +2,18 @@
   .boardMaster(style="width: {{boardMaster.const.rank() * 40}}px;")
     .score
       .score-item.black.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.BLACK) && !boardMaster.isFinished()}")
-        %i.fa.fa-star-o(ng-show="boardMaster.isFinished() && boardMaster.current.winner(boardMaster.const.TURN.BLACK)")
+        %i.fa.fa-star-o(ng-show="boardMaster.isFinished() && boardMaster.current.result() > 0")
         {{ boardMaster.current.score(boardMaster.const.TURN.BLACK) }}
       .score-item.white.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.WHITE) && !boardMaster.isFinished()}")
-        %i.fa.fa-star-o(ng-show="boardMaster.isFinished() && boardMaster.current.winner(boardMaster.const.TURN.WHITE)")
+        %i.fa.fa-star-o(ng-show="boardMaster.isFinished() && boardMaster.current.result() < 0")
         {{ boardMaster.current.score(boardMaster.const.TURN.WHITE) }}
     .board
       .row(ng-repeat="i in rankList")
         .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" ng-click="clickCell(i, j)" style="width: 40px; height: 40px;")
           .inner-panel {{ boardMaster.get([i, j]) }}
+  .result(ng-show="boardMaster.isFinished()")
+    %label(ng-show="boardMaster.current.result() == 0") {{ "Drawn!"|trans }}
+    %label(ng-hide="boardMaster.current.result() == 0") {{ "%name% win!"|trans:{name:winner.name} }}
   .menu(ng-show="boardMaster.isFinished()")
     .commands
       .command
