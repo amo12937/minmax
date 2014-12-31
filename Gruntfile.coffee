@@ -16,7 +16,7 @@ module.exports = (grunt) ->
         test: "test"
         tmp: ".tmp"
         compiled: ".tmp/compiled"
-        dist: ".web"
+        dist: "dev"
         deploy: "web"
         vendor: "bower_components"
     fileDeps: fileDeps
@@ -30,7 +30,7 @@ module.exports = (grunt) ->
         ]
       target:
         files: [
-          dot: true
+          dot: false
           src: [
             "<%= context.dir.dist %>/**/*"
           ]
@@ -87,6 +87,11 @@ module.exports = (grunt) ->
           cwd: "<%= context.dir.compiled %>"
           src: ["**/*.{js,map}"]
           dest: "<%= context.dir.dist %>"
+        }, {
+          expand: true
+          cwd: "<%= context.dir.src %>"
+          src: ["**/*.coffee"]
+          dest: "<%= context.dir.dist %>"
         }]
       styles:
         files: [{
@@ -94,6 +99,20 @@ module.exports = (grunt) ->
           cwd: "<%= context.dir.src %>"
           src: ["**/*.css"]
           dest: "<%= context.dir.dist %>"
+        }]
+      vendor:
+        files: [{
+          expand: true
+          cwd: "<%= context.dir.vendor %>"
+          src: ["**/*"]
+          dest: "<%= context.dir.dist %>/vendor"
+        }]
+      resource:
+        files: [{
+          expand: true
+          cwd: "<%= context.dir.src %>/res"
+          src: ["**/*"]
+          dest: "<%= context.dir.dist %>/res"
         }]
       deploy:
         files: [{
@@ -218,11 +237,11 @@ module.exports = (grunt) ->
     "copy:scripts"
     "makeMainJs:target"
     "copy:styles"
-    "symlink:vendor"
-    "symlink:resource"
+    "copy:vendor"
+    "copy:resource"
   ]
 
-  grunt.registerTask "deploy", [
+  grunt.registerTask "build:deploy", [
     "clean:intermediate"
     "clean:deploy"
     "haml:compile"

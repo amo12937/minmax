@@ -1,3 +1,6 @@
 [submodule "web"]
 	path = web
 	url = git@github.com:amo12937/minmax_web.git
+[submodule "dev"]
+	path = dev
+	url = git@github.com:amo12937/minmax_dev.git
