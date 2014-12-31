@@ -17,8 +17,10 @@ module.exports =
       baseUrl: "scripts"
       shim:
         "modules/player/man": ["modules/player/player"]
-        "modules/player/com": ["modules/player/player"]
-        "modules/player/alphaBeta": ["modules/player/player"]
+        "modules/player/com/base": ["modules/player/player"]
+        "modules/player/alphaBeta": ["modules/player/com/base"]
+        "modules/player/com": ["modules/player/com/base"]
+        "modules/player/doubleChecker": ["modules/player/com/base", "modules/player/alphaBeta", "modules/player/com"]
         "minmax/translator/translator": ["modules/translator/translatorCollection"]
         "minmax/translator/apis/getRule": ["minmax/translator/translator"]
         "minmax/translator/transResolver": ["minmax/translator/translator", "minmax/translator/apis/getRule"]
@@ -26,8 +28,9 @@ module.exports =
           "modules/boardMaster/boardMaster"
           "modules/gameMaster/gameMaster"
           "modules/player/man"
-          "modules/player/com"
           "modules/player/alphaBeta"
+          "modules/player/com"
+          "modules/player/doubleChecker"
         ]
         "controllers/route": [
           "controllers/minmax"

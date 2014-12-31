@@ -4,9 +4,8 @@ do (moduleName = "amo.minmax.Player") ->
   angular.module moduleName
 
   .factory "#{moduleName}.Com", [
-    "$timeout"
-    "#{moduleName}.PlayerBase"
-    ($timeout, PlayerBase) ->
+    "#{moduleName}.Com.Base"
+    (ComBase) ->
       (name, boardMaster, maxDepth = 7, delay = 0) ->
         l = [0 .. boardMaster.const.rank() - 1]
         choice = (depth) ->
@@ -46,15 +45,11 @@ do (moduleName = "amo.minmax.Player") ->
                 result = pos
           return [score, result]
           
-        self = PlayerBase name
-        self.play = (callback) ->
-          $timeout ->
-            if boardMaster.current.isFirst()
-              [_, pos] = choiceFirst maxDepth
-            else
-              [_, pos] = choice maxDepth
-            boardMaster.select pos
-            callback boardMaster.isFinished()
-          , delay
-        self
+        self = ComBase name, boardMaster, maxDepth, delay
+        self.getChosen = (depth) ->
+          if boardMaster.current.isFirst()
+            return choiceFirst(depth)[1]
+          else
+            return choice(depth)[1]
+        return self
   ]

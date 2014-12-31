@@ -17,16 +17,18 @@ do (modulePrefix = "amo.minmax") ->
     "#{modulePrefix}.BoardMaster.Board"
     "#{modulePrefix}.BoardMaster.BoardMaster"
     "#{modulePrefix}.Player.Man"
-    "#{modulePrefix}.Player.Com"
     "#{modulePrefix}.Player.Com.AlphaBeta"
+    "#{modulePrefix}.Player.Com"
+    "#{modulePrefix}.Player.Com.DoubleChecker"
     "#{modulePrefix}.GameMaster.GameMaster"
     "amo.module.Translator.translatorCollection"
-    ($location, $route, $scope, RandomScoreCreator, Board, BoardMaster, Man, Com, ComAB, GameMaster, translatorCollection) ->
-      playerTypes = {"MAN", "COM", "COMAB"}
+    ($location, $route, $scope, RandomScoreCreator, Board, BoardMaster, Man, ComAB, Com, ComDC, GameMaster, translatorCollection) ->
+      playerTypes = {"MAN", "COM", "COMAB", "COMDC"}
       playerClass =
         MAN: Man
         COM: Com
         COMAB: ComAB
+        COMDC: ComDC
       toNum = (n, d) ->
         return d unless n
         return Number n
