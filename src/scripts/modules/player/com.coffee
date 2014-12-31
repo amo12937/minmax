@@ -10,9 +10,13 @@ do (moduleName = "amo.minmax.Player") ->
         l = [0 .. boardMaster.const.rank() - 1]
         choice = (depth) ->
           return [0, [0, 0]] if depth <= 0
-          return [0, [0, 0]] if boardMaster.isFinished()
           pos = boardMaster.current.position()
           turn = boardMaster.current.turn()
+          if boardMaster.isFinished()
+            if boardMaster.current.result turn
+              return [Infinity, [0, 0]]
+            else
+              return [-Infinity, [0, 0]]
           score = -Infinity
           result = 0
           for i in l
