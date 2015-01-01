@@ -4,7 +4,7 @@ do (moduleName = "amo.minmax.controllers") ->
   angular.module moduleName
   .config [
     "$routeProvider"
-    "amo.minmax.module.Translator.transResolverProvider"
+    "amo.minmax.module.translator.transResolverProvider"
     ($routeProvider, transResolverProvider) ->
       $routeProvider
       .when "/",

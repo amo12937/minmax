@@ -1,6 +1,6 @@
 "use strict"
 
-do (moduleName = "amo.minmax.module.Translator") ->
+do (moduleName = "amo.minmax.module.translator") ->
   angular.module moduleName
   .factory "#{moduleName}.api.GetRule", [
     "$http"

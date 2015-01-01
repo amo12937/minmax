@@ -7,7 +7,7 @@ do (modulePrefix = "amo.minmax") ->
     "#{modulePrefix}.BoardMaster"
     "#{modulePrefix}.Player"
     "#{modulePrefix}.GameMaster"
-    "#{modulePrefix}.module.Translator"
+    "#{modulePrefix}.module.translator"
 ]
   .controller "#{modulePrefix}.controllers.minmax", [
     "$location"
@@ -21,7 +21,7 @@ do (modulePrefix = "amo.minmax") ->
     "#{modulePrefix}.Player.Com"
     "#{modulePrefix}.Player.Com.DoubleChecker"
     "#{modulePrefix}.GameMaster.GameMaster"
-    "amo.module.Translator.translatorCollection"
+    "amo.module.translator.translatorCollection"
     ($location, $route, $scope, RandomScoreCreator, Board, BoardMaster, Man, ComAB, Com, ComDC, GameMaster, translatorCollection) ->
       playerTypes = {"MAN", "COM", "COMAB", "COMDC"}
       playerClass =

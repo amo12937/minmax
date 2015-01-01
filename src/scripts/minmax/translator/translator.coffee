@@ -1,8 +1,7 @@
 "use strict"
 
-do (moduleName = "amo.minmax.module.Translator") ->
-  translatorModuleName = "amo.module.Translator"
-  angular.module moduleName, ["ng", translatorModuleName]
+do (moduleName = "amo.minmax.module.translator") ->
+  angular.module moduleName, ["ng", "amo.module.translator"]
   .value "#{moduleName}.config",
     resourceDir: "res/minmax/translator/"
     resourceExt: ".json"

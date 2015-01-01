@@ -7,6 +7,7 @@ module.exports =
     src: [
       "angular/angular.min.js"
       "angular-route/angular-route.min.js"
+      "angular.amo.module.translator/src/translator.min.js"
     ]
   require:
     name: "require.js"
@@ -21,7 +22,6 @@ module.exports =
         "modules/player/alphaBeta": ["modules/player/com/base"]
         "modules/player/com": ["modules/player/com/base"]
         "modules/player/doubleChecker": ["modules/player/com/base", "modules/player/alphaBeta", "modules/player/com"]
-        "minmax/translator/translator": ["modules/translator/translatorCollection"]
         "minmax/translator/apis/getRule": ["minmax/translator/translator"]
         "minmax/translator/transResolver": ["minmax/translator/translator", "minmax/translator/apis/getRule"]
         "controllers/minmax": [
@@ -44,6 +44,7 @@ module.exports =
       "<%= context.dir.vendor %>/angular/angular.js"
       "<%= context.dir.vendor %>/angular-route/angular-route.js"
       "<%= context.dir.vendor %>/angular-mocks/angular-mocks.js"
+      "<%= context.dir.vendor %>/angular.amo.module.translator/src/translator.min.js"
       "<%= context.dir.src %>/scripts/modules/player/player.coffee"
       "<%= context.dir.src %>/scripts/minmax/translator/translator.coffee"
       "<%= context.dir.src %>/scripts/**/*.coffee"

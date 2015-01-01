@@ -1,7 +1,7 @@
 "use strict"
 
-do (moduleName = "amo.minmax.module.Translator") ->
-  translatorModuleName = "amo.module.Translator"
+do (moduleName = "amo.minmax.module.translator") ->
+  translatorModuleName = "amo.module.translator"
   translatorName = "trans"
 
   angular.module moduleName
@@ -16,12 +16,12 @@ do (moduleName = "amo.minmax.module.Translator") ->
       "#{moduleName}.api.GetRule"
       ($location, tc, GetRuleApi) ->
         query = $location.search()
-        lang = query.lang or "jp"
+        lang = query.lang or "ja"
         translator = tc.getTranslator translatorName
-        translator.setRules {}
+        translator.setRule {}
         return GetRuleApi().request("#{lang}/#{translatorName}")
           .then (response) ->
-            translator.setRules response.data
+            translator.setRule response.data
             return
     ]
 
