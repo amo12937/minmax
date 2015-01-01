@@ -7,7 +7,7 @@ module.exports =
     src: [
       "angular/angular.min.js"
       "angular-route/angular-route.min.js"
-      "angular.amo.module.translator/src/translator.min.js"
+      "angular.amo.module.translator/dist/js/translator.min.js"
     ]
   require:
     name: "require.js"
@@ -44,7 +44,7 @@ module.exports =
       "<%= context.dir.vendor %>/angular/angular.js"
       "<%= context.dir.vendor %>/angular-route/angular-route.js"
       "<%= context.dir.vendor %>/angular-mocks/angular-mocks.js"
-      "<%= context.dir.vendor %>/angular.amo.module.translator/src/translator.min.js"
+      "<%= context.dir.vendor %>/angular.amo.module.translator/dist/js/translator.min.js"
       "<%= context.dir.src %>/scripts/modules/player/player.coffee"
       "<%= context.dir.src %>/scripts/minmax/translator/translator.coffee"
       "<%= context.dir.src %>/scripts/**/*.coffee"
