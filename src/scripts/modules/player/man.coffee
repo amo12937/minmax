@@ -13,15 +13,12 @@ do (moduleName = "amo.minmax.Player") ->
         self.choice = (p) ->
           return unless deferred
           return unless boardMaster.selectable p
-          deferred.resolve p
+          boardMaster.select p
+          deferred.resolve boardMaster.isFinished()
           deferred = null
-        self.play = (callback) ->
+        self.play = ->
           deferred = $q.defer()
-          promise = deferred.promise
-          promise.then (p) ->
-            boardMaster.select p
-            callback boardMaster.isFinished()
-          return
-        self
+          return deferred.promise
+        return self
   ]
 

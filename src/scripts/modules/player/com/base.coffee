@@ -5,15 +5,18 @@ do (moduleName = "amo.minmax.Player") ->
 
   .factory "#{moduleName}.Com.Base", [
     "$timeout"
+    "$q"
     "#{moduleName}.PlayerBase"
-    ($timeout, PlayerBase) ->
+    ($timeout, $q, PlayerBase) ->
       (name, boardMaster, maxDepth = 7, delay = 0) ->
         self = PlayerBase name
-        self.play = (callback) ->
+        self.play = ->
+          deferred = $q.defer()
           $timeout ->
             pos = self.getChosen maxDepth
             boardMaster.select pos
-            callback boardMaster.isFinished()
+            deferred.resolve boardMaster.isFinished()
           , delay
+          return deferred.promise
         return self
   ]
