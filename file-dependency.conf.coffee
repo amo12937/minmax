@@ -8,6 +8,8 @@ module.exports =
       "angular/angular.min.js"
       "angular-route/angular-route.min.js"
       "angular.amo.module.translator/dist/js/translator.min.js"
+      "angular.amo.module.state_machine/dist/js/state_machine.min.js"
+      "angular.amo.module.game.game/dist/js/game.min.js"
     ]
   require:
     name: "require.js"
@@ -26,7 +28,6 @@ module.exports =
         "minmax/translator/transResolver": ["minmax/translator/translator", "minmax/translator/apis/getRule"]
         "controllers/minmax": [
           "modules/boardMaster/boardMaster"
-          "modules/gameMaster/gameMaster"
           "modules/player/man"
           "modules/player/alphaBeta"
           "modules/player/com"
@@ -45,6 +46,8 @@ module.exports =
       "<%= context.dir.vendor %>/angular-route/angular-route.js"
       "<%= context.dir.vendor %>/angular-mocks/angular-mocks.js"
       "<%= context.dir.vendor %>/angular.amo.module.translator/dist/js/translator.min.js"
+      "<%= context.dir.vendor %>/angular.amo.module.state_machine/dist/js/state_machine.min.js"
+      "<%= context.dir.vendor %>/angular.amo.module.game.game/dist/js/game.min.js"
       "<%= context.dir.src %>/scripts/modules/player/player.coffee"
       "<%= context.dir.src %>/scripts/minmax/translator/translator.coffee"
       "<%= context.dir.src %>/scripts/**/*.coffee"
