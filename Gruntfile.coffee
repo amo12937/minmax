@@ -118,7 +118,7 @@ module.exports = (grunt) ->
         files: [{
           expand: true
           cwd: "<%= context.dir.compiled %>"
-          src: ["**/*.{html,js,map}"]
+          src: ["**/*.html"]
           dest: "<%= context.dir.deploy %>"
         }, {
           expand: true
