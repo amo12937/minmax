@@ -38,39 +38,39 @@ describe "amo.minmax.Player モジュールの仕様", ->
         man.choice choice
         expect(boardMaster.selectable).not.toHaveBeenCalled()
 
-      it "play の後に choice を呼び、selectable なら callback が呼ばれる", ->
+      it "play の後に choice を呼び、selectable なら promise が解決される", (done) ->
         choice = [1, 2]
         boardMaster.selectable.and.returnValue true
 
         expected = {}
         boardMaster.isFinished.and.returnValue expected
-        callback = jasmine.createSpy "callback"
 
-        man.play callback
+        promise = man.play()
         expect(boardMaster.selectable).not.toHaveBeenCalled()
         expect(boardMaster.select).not.toHaveBeenCalled()
         expect(boardMaster.isFinished).not.toHaveBeenCalled()
 
         man.choice choice
         expect(boardMaster.selectable).toHaveBeenCalledWith choice
-        $rootScope.$digest()
         expect(boardMaster.select).toHaveBeenCalledWith choice
         expect(boardMaster.isFinished).toHaveBeenCalled()
-        expect(callback).toHaveBeenCalledWith expected
+        promise.then (actual) ->
+          expect(actual).toBe expected
+          done()
+        $rootScope.$digest()
 
-      it "play の後に choice を呼んでも、selectable でなければ callback は呼ばれない", ->
+      it "play の後に choice を呼んでも、selectable でなければ promise は解決しない", ->
         choice = [1, 2]
         boardMaster.selectable.and.returnValue false
 
-        callback = jasmine.createSpy "callback"
-
-        man.play callback
+        counter = 0
+        man.play().then -> counter++
         man.choice choice
         expect(boardMaster.selectable).toHaveBeenCalledWith choice
-        $rootScope.$digest()
         expect(boardMaster.select).not.toHaveBeenCalled()
         expect(boardMaster.isFinished).not.toHaveBeenCalled()
-        expect(callback).not.toHaveBeenCalled()
+        $rootScope.$digest()
+        expect(counter).toBe 0
 
       it "play の後に choice を 複数回呼ぶと、初めの selectable なもののみ採択される", ->
         man.play ->
@@ -93,20 +93,14 @@ describe "amo.minmax.Player モジュールの仕様", ->
         expect(boardMaster.selectable.calls.count()).toBe 3
 
       it "play を複数回呼ぶと、最後の play に対する callback のみ呼ばれる", ->
-        callbacks = [
-          jasmine.createSpy("callback 0")
-          jasmine.createSpy("callback 1")
-          jasmine.createSpy("callback 2")
-        ]
+        counters = [0, 0, 0]
         boardMaster.selectable.and.returnValue true
 
-        man.play callbacks[0]
-        man.play callbacks[1]
-        man.play callbacks[2]
+        man.play().then -> counters[0]++
+        man.play().then -> counters[1]++
+        man.play().then -> counters[2]++
 
         man.choice [1, 2]
         $rootScope.$digest()
-        expect(callbacks[0]).not.toHaveBeenCalled()
-        expect(callbacks[1]).not.toHaveBeenCalled()
-        expect(callbacks[2]).toHaveBeenCalled()
+        expect(counters).toEqual [0, 0, 1]
 
