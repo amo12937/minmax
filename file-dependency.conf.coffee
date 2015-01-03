@@ -24,8 +24,8 @@ module.exports =
         "modules/player/alphaBeta": ["modules/player/com/base"]
         "modules/player/com": ["modules/player/com/base"]
         "modules/player/doubleChecker": ["modules/player/com/base", "modules/player/alphaBeta", "modules/player/com"]
-        "minmax/translator/apis/getRule": ["minmax/translator/translator"]
-        "minmax/translator/transResolver": ["minmax/translator/translator", "minmax/translator/apis/getRule"]
+        "minmax/module/translator/apis/getRule": ["minmax/module/translator/translator"]
+        "minmax/module/translator/transResolver": ["minmax/module/translator/translator", "minmax/module/translator/apis/getRule"]
         "controllers/minmax": [
           "modules/boardMaster/boardMaster"
           "modules/player/man"
@@ -35,7 +35,7 @@ module.exports =
         ]
         "controllers/route": [
           "controllers/minmax"
-          "minmax/translator/transResolver"
+          "minmax/module/translator/transResolver"
         ]
         "app": ["controllers/minmax", "controllers/route", "modules/ngLoadScript/ngLoadScript"]
         "bootstrap": ["app"]
@@ -49,7 +49,7 @@ module.exports =
       "<%= context.dir.vendor %>/angular.amo.module.state_machine/dist/js/state_machine.min.js"
       "<%= context.dir.vendor %>/angular.amo.module.game.game/dist/js/game.min.js"
       "<%= context.dir.src %>/scripts/modules/player/player.coffee"
-      "<%= context.dir.src %>/scripts/minmax/translator/translator.coffee"
+      "<%= context.dir.src %>/scripts/minmax/module/translator/translator.coffee"
       "<%= context.dir.src %>/scripts/**/*.coffee"
       "<%= context.dir.test %>/spec/**/*.coffee"
     ]
