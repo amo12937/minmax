@@ -1,25 +1,25 @@
 .minmax
-  .boardMaster(style="width: {{boardMaster.const.rank() * 40}}px;")
+  .boardMaster(style="width: {{board.const.rank() * 40}}px;")
     .score
-      .score-item.black.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.BLACK) && !boardMaster.isFinished()}")
-        %i.fa.fa-star-o(ng-show="boardMaster.isFinished() && boardMaster.current.result() > 0")
-        {{ boardMaster.current.score(boardMaster.const.TURN.BLACK) }}
-      .score-item.white.col-xs-6(ng-class="{'current-turn':boardMaster.current.turn(boardMaster.const.TURN.WHITE) && !boardMaster.isFinished()}")
-        %i.fa.fa-star-o(ng-show="boardMaster.isFinished() && boardMaster.current.result() < 0")
-        {{ boardMaster.current.score(boardMaster.const.TURN.WHITE) }}
+      .score-item.black.col-xs-6(ng-class="{'current-turn':board.current.turn(board.const.TURN.BLACK) && !board.isFinished()}")
+        %i.fa.fa-star-o(ng-show="board.isFinished() && board.current.value(board.const.TURN.BLACK) > 0")
+        {{ board.current.score(board.const.TURN.BLACK) }}
+      .score-item.white.col-xs-6(ng-class="{'current-turn':board.current.turn(board.const.TURN.WHITE) && !board.isFinished()}")
+        %i.fa.fa-star-o(ng-show="board.isFinished() && board.current.value(board.const.TURN.WHITE) > 0")
+        {{ board.current.score(board.const.TURN.WHITE) }}
     .board
       .row(ng-repeat="i in rankList")
-        .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: boardMaster.selectable([i, j]), used: boardMaster.used([i, j])}" ng-click="clickCell(i, j)" style="width: 40px; height: 40px;")
-          .inner-panel {{ boardMaster.get([i, j]) }}
+        .panel.col-md-1(ng-repeat="j in rankList" ng-class="{selectable: board.selectable([i, j]), used: board.used([i, j])}" ng-click="clickCell(i, j)" style="width: 40px; height: 40px;")
+          .inner-panel {{ board.get([i, j]) }}
   .sns
     .twitter
       %a.twitter-hashtag-button(href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Famo12937.github.io%2Fminmax_web%2F&text=now%20playing%20%23minmaxO_O&url=http%3A%2F%2Famo12937.github.io%2Fminmax_web%2F") Tweet
       %script(type="text/javascript-lazy")
         !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-  .result(ng-show="boardMaster.isFinished()")
-    %label(ng-show="boardMaster.current.result() == 0") {{ "Drawn!"|trans }}
-    %label(ng-hide="boardMaster.current.result() == 0") {{ "%name% win!"|trans:{name:winner.name} }}
-  .menu(ng-show="boardMaster.isFinished()")
+  .result(ng-show="board.isFinished()")
+    %label(ng-show="board.current.value(board.const.TURN.BLACK) == 0") {{ "Drawn!"|trans }}
+    %label(ng-hide="board.current.value(board.const.TURN.BLACK) == 0") {{ "%name% win!"|trans:{name:winner.name} }}
+  .menu(ng-show="board.isFinished()")
     .form-inline
       .form-group
         %button.btn.btn-default(ng-click="play()") {{ "replay"|trans }}

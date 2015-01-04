@@ -10,6 +10,7 @@ module.exports =
       "angular.amo.module.translator/dist/js/translator.min.js"
       "angular.amo.module.state_machine/dist/js/state_machine.min.js"
       "angular.amo.module.game.game/dist/js/game.min.js"
+      "angular.amo.module.game.player/dist/js/player.min.js"
     ]
   require:
     name: "require.js"
@@ -19,19 +20,10 @@ module.exports =
     deps:
       baseUrl: "scripts"
       shim:
-        "modules/player/man": ["modules/player/player"]
-        "modules/player/com/base": ["modules/player/player"]
-        "modules/player/alphaBeta": ["modules/player/com/base"]
-        "modules/player/com": ["modules/player/com/base"]
-        "modules/player/doubleChecker": ["modules/player/com/base", "modules/player/alphaBeta", "modules/player/com"]
         "minmax/module/translator/apis/getRule": ["minmax/module/translator/translator"]
         "minmax/module/translator/transResolver": ["minmax/module/translator/translator", "minmax/module/translator/apis/getRule"]
         "controllers/minmax": [
-          "modules/boardMaster/boardMaster"
-          "modules/player/man"
-          "modules/player/alphaBeta"
-          "modules/player/com"
-          "modules/player/doubleChecker"
+          "minmax/module/board/board"
         ]
         "controllers/route": [
           "controllers/minmax"
@@ -48,6 +40,7 @@ module.exports =
       "<%= context.dir.vendor %>/angular.amo.module.translator/dist/js/translator.min.js"
       "<%= context.dir.vendor %>/angular.amo.module.state_machine/dist/js/state_machine.min.js"
       "<%= context.dir.vendor %>/angular.amo.module.game.game/dist/js/game.min.js"
+      "<%= context.dir.vendor %>/angular.amo.module.game.player/dist/js/player.min.js"
       "<%= context.dir.src %>/scripts/modules/player/player.coffee"
       "<%= context.dir.src %>/scripts/minmax/module/translator/translator.coffee"
       "<%= context.dir.src %>/scripts/**/*.coffee"

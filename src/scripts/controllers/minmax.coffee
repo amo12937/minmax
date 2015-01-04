@@ -5,36 +5,31 @@ do (modulePrefix = "amo.minmax") ->
     "ng"
     "ngRoute"
     "amo.module.game.game"
-    "#{modulePrefix}.BoardMaster"
-    "#{modulePrefix}.Player"
-    "#{modulePrefix}.module.translator"
+    "amo.module.game.player"
+    "amo.minmax.module.board"
+    "amo.minmax.module.translator"
 ]
   .controller "#{modulePrefix}.controllers.minmax", [
     "$location"
     "$route"
     "$scope"
     "amo.module.game.game.Game"
-    "#{modulePrefix}.BoardMaster.RandomScoreCreator"
-    "#{modulePrefix}.BoardMaster.Board"
-    "#{modulePrefix}.BoardMaster.BoardMaster"
-    "#{modulePrefix}.Player.Man"
-    "#{modulePrefix}.Player.Com.AlphaBeta"
-    "#{modulePrefix}.Player.Com"
-    "#{modulePrefix}.Player.Com.DoubleChecker"
+    "amo.module.game.player.Player"
+    "amo.module.game.player.strategy.Man"
+    "amo.module.game.player.strategy.Com.AlphaBeta"
+    "amo.minmax.module.board.Board"
     "amo.module.translator.translatorCollection"
-    ($location, $route, $scope, Game, RandomScoreCreator, Board, BoardMaster, Man, ComAB, Com, ComDC, translatorCollection) ->
-      playerTypes = {"MAN", "COM", "COMAB", "COMDC"}
+    ($location, $route, $scope, Game, Player, Man, Com, Board, translatorCollection) ->
+      playerTypes = {"MAN", "COM"}
       playerClass =
         MAN: Man
         COM: Com
-        COMAB: ComAB
-        COMDC: ComDC
       toNum = (n, d) ->
         return d unless n
         return Number n
 
-      createPlayer = (type, name, level, delay) ->
-        return playerClass[type] name, $scope.boardMaster, Math.max(level, 1), Math.max(delay, 0)
+      createStrategy = (type, board, delay, level) ->
+        return playerClass[type] board, Math.max(delay, 0), Math.max(level, 1)
 
       translator = translatorCollection.getTranslator "trans"
       opts = $location.search()
@@ -47,7 +42,7 @@ do (modulePrefix = "amo.minmax") ->
         p1_level: toNum opts.p1_level, 5
         p1_delay: toNum opts.p1_delay, 100
         p1_win: toNum opts.p1_win, 0
-        p2: opts.p2 or playerTypes.COMAB
+        p2: opts.p2 or playerTypes.COM
         p2_name: opts.p2_name or translator "Com"
         p2_level: toNum opts.p2_level, 5
         p2_delay: toNum opts.p2_delay, 100
@@ -58,21 +53,25 @@ do (modulePrefix = "amo.minmax") ->
       $scope.levels = [1..9]
       $scope.p2_level = options.p2_level
 
-      createScore = RandomScoreCreator options.min, options.max
-      board = Board options.rank, createScore, "outside"
-      $scope.boardMaster = boardMaster = BoardMaster board
-      $scope.rankList = [0 .. options.rank - 1]
+      p1 = Player options.p1_name
+      p2 = Player options.p2_name
+      board = Board p1, p2, options.rank, options.min, options.max
+      man = createStrategy options.p1, board, options.p1_delay, options.p1_level
+      com = createStrategy options.p2, board, options.p2_delay, options.p2_level
+      p1.changeStrategy man
+      p2.changeStrategy com
 
-      players = {}
-      players[boardMaster.const.TURN.BLACK] = p1 = createPlayer options.p1, options.p1_name, options.p1_level, options.p1_delay
-      players[boardMaster.const.TURN.WHITE] = p2 = createPlayer options.p2, options.p2_name, options.p2_level, options.p2_delay
+      $scope.board = board
+      $scope.rankList = [0 .. options.rank - 1]
+      $scope.p1 = p1
+      $scope.p2 = p2
 
       gameDelegate =
         getNextPlayer: ->
-          players[boardMaster.current.turn()]
+          board.current.player()
         end: ->
           console.log "end"
-          result = boardMaster.current.result()
+          result = board.current.value board.const.TURN.BLACK
           if result > 0
             $scope.winner =
               name: p1.name()
@@ -99,5 +98,6 @@ do (modulePrefix = "amo.minmax") ->
         $route.reload()
 
       $scope.clickCell = (i, j) ->
-        players[boardMaster.current.turn()].choice? [i, j]
+        board.current.player().select [i, j]
+        return
   ]
