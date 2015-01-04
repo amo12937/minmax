@@ -22,14 +22,14 @@ module.exports =
       shim:
         "minmax/module/translator/apis/getRule": ["minmax/module/translator/translator"]
         "minmax/module/translator/transResolver": ["minmax/module/translator/translator", "minmax/module/translator/apis/getRule"]
-        "controllers/minmax": [
+        "minmax/controllers/minmax": [
           "minmax/module/board/board"
         ]
-        "controllers/route": [
-          "controllers/minmax"
+        "minmax/controllers/route": [
+          "minmax/controllers/minmax"
           "minmax/module/translator/transResolver"
         ]
-        "app": ["controllers/minmax", "controllers/route", "modules/ngLoadScript/ngLoadScript"]
+        "app": ["minmax/controllers/minmax", "minmax/controllers/route", "modules/ngLoadScript/ngLoadScript"]
         "bootstrap": ["app"]
       deps: ["bootstrap"]
   test:
