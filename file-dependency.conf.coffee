@@ -41,7 +41,6 @@ module.exports =
       "<%= context.dir.vendor %>/angular.amo.module.state_machine/dist/js/state_machine.min.js"
       "<%= context.dir.vendor %>/angular.amo.module.game.game/dist/js/game.min.js"
       "<%= context.dir.vendor %>/angular.amo.module.game.player/dist/js/player.min.js"
-      "<%= context.dir.src %>/scripts/modules/player/player.coffee"
       "<%= context.dir.src %>/scripts/minmax/module/translator/translator.coffee"
       "<%= context.dir.src %>/scripts/**/*.coffee"
       "<%= context.dir.test %>/spec/**/*.coffee"
